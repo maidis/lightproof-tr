@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oor:component-data xmlns:oor="http://openoffice.org/2001/registry" xmlns:xs="http://www.w3.org/2001/XMLSchema" oor:name="Accelerators" oor:package="org.openoffice.Office">
+ <node oor:name="PrimaryKeys">
+  <node oor:name="Modules">
+   <node oor:name="com.sun.star.text.TextDocument">
+    <node oor:name="R_MOD2" oor:op="replace">
+     <prop oor:name="Command">
+      <value xml:lang="hu">macro:///lightproof_editor.General.Compile</value>
+     </prop>
+    </node>
+    <node oor:name="C_MOD2" oor:op="replace">
+     <prop oor:name="Command">
+      <value xml:lang="hu">macro:///lightproof_editor.General.CompileAll</value>
+     </prop>
+    </node>
+    <node oor:name="D_MOD2" oor:op="replace">
+     <prop oor:name="Command">
+      <value xml:lang="hu">macro:///lightproof_editor.General.Debug</value>
+     </prop>
+    </node>
+   </node>
+  </node>
+ </node>
+ <node oor:name="SecondaryKeys">
+  <node oor:name="Modules">
+   <node oor:name="com.sun.star.text.TextDocument">
+   </node>
+  </node>
+ </node>
+</oor:component-data>

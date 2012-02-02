@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<oor:component-data 
+ xmlns:oor="http://openoffice.org/2001/registry"
+ xmlns:xs="http://www.w3.org/2001/XMLSchema"
+ oor:name="Addons"
+ oor:package="org.openoffice.Office">
+	<node oor:name="AddonUI">
+		<node oor:name="OfficeToolBar">
+			<node oor:name="lightproof_editor.OfficeToolBar" oor:op="replace">
+				<node oor:name="m0" oor:op="replace">
+					<prop oor:name="Context" oor:type="xs:string">
+						<value>com.sun.star.text.TextDocument</value>
+					</prop>
+					<prop oor:name="URL" oor:type="xs:string">
+						<value>macro:///lightproof_editor.General.Compile</value>
+					</prop>
+					<prop oor:name="Title" oor:type="xs:string">
+						<value>Apply rules (Alt-R)</value>
+					</prop>
+					<prop oor:name="Target" oor:type="xs:string">
+						<value>_self</value>
+					</prop>
+				</node>
+				<node oor:name="m1" oor:op="replace">
+					<prop oor:name="Context" oor:type="xs:string">
+						<value>com.sun.star.text.TextDocument</value>
+					</prop>
+					<prop oor:name="URL" oor:type="xs:string">
+						<value>macro:///lightproof_editor.General.CompileAll</value>
+					</prop>
+					<prop oor:name="Title" oor:type="xs:string">
+						<value>Apply all (also optional) rules (Alt-C)</value>
+					</prop>
+					<prop oor:name="Target" oor:type="xs:string">
+						<value>_self</value>
+					</prop>
+				</node>
+				<node oor:name="m2" oor:op="replace">
+					<prop oor:name="Context" oor:type="xs:string">
+						<value>com.sun.star.text.TextDocument</value>
+					</prop>
+					<prop oor:name="URL" oor:type="xs:string">
+						<value>macro:///lightproof_editor.General.Debug</value>
+					</prop>
+					<prop oor:name="Title" oor:type="xs:string">
+						<value>Debug rules (Alt-D)</value>
+					</prop>
+					<prop oor:name="Target" oor:type="xs:string">
+						<value>_self</value>
+					</prop>
+				</node>
+		</node>
+		</node>
+
+	<node oor:name="Images">
+		<node oor:name="lightproof_editor-image-comp" oor:op="replace">
+			<prop oor:name="URL" oor:type="xs:string">
+				<value>macro:///lightproof_editor.General.Compile</value>
+			</prop>
+			<node oor:name="UserDefinedImages">
+				<prop oor:name="ImageSmallURL">
+					<value>%origin%/icons/comp16.png</value>
+				</prop>
+				<prop oor:name="ImageBigURL">
+					<value>%origin%/icons/comp.png</value>
+				</prop>
+			</node>
+		</node>
+		<node oor:name="lightproof_editor-image-compall" oor:op="replace">
+			<prop oor:name="URL" oor:type="xs:string">
+				<value>macro:///lightproof_editor.General.CompileAll</value>
+			</prop>
+			<node oor:name="UserDefinedImages">
+				<prop oor:name="ImageSmallURL">
+					<value>%origin%/icons/compall16.png</value>
+				</prop>
+				<prop oor:name="ImageBigURL">
+					<value>%origin%/icons/compall.png</value>
+				</prop>
+			</node>
+		</node>
+		<node oor:name="lightproof_editor-image-debug" oor:op="replace">
+			<prop oor:name="URL" oor:type="xs:string">
+				<value>macro:///lightproof_editor.General.Debug</value>
+			</prop>
+			<node oor:name="UserDefinedImages">
+				<prop oor:name="ImageSmallURL">
+					<value>%origin%/icons/debug16.png</value>
+				</prop>
+				<prop oor:name="ImageBigURL">
+					<value>%origin%/icons/debug.png</value>
+				</prop>
+			</node>
+		</node>
+	</node>
+	</node>
+</oor:component-data>

@@ -1,0 +1,66 @@
+# Options and title texts for the Settings and conditional rules
+# for Russian (translated by Yakov Reztsov  2011)
+# The Lightproof dialogs contain only grouped checkboxes.
+#
+# Format of the dialog definition:
+#
+# GroupID: OptionID, OptionID ...
+# Group2ID: OptionID, OptionID ...
+# ...
+# [Language_code=title of the window]
+# OptionID=title of the option
+# Option2ID=title of the option
+#
+# The first language is the default language for other locales
+# (use en_US or the common language of your country)
+#
+# The OptionIDs declared here are used in the rules, too. For example:
+#
+# foo <- option("style") -> bar # bar is far better
+#
+# this rule depends from the state of the "style" checkbox.
+
+# options (starred options are checked)
+
+grammar: *hyphen *comma, *multiword *together
+proofreading:  *dup dup2, *common *space, *abbreviation
+others: numsep, *typographica, *quotation
+
+# titles
+
+[en_US=Russian sentence checking]
+
+abbreviation=Abbreviation
+grammar=Grammar
+hyphen=Compound words with hyphen
+comma=Comma usage
+common=General error
+multiword=Multiword expressions
+together=Together/separately
+proofreading=Proofreading
+space=Space mistake
+typographica=Typographica
+dup=Word duplication within clauses
+dup2=Word duplication within sentences
+others=Others
+numsep=Separation of large numbers (ISO)
+quotation=Quotation
+
+[ru_RU=Проверка грамматики (Русский язык)]
+
+abbreviation=Аббревиатуры
+grammar=Грамматика
+hyphen=Дефис
+comma=Пунктуация
+common=Общие ошибки
+multiword=Словосочетания
+together=Слитно/раздельно
+proofreading=Стилистика
+space=Пробел
+typographica=Типографика
+dup=Повтор слов в словосочетаниях
+dup2=Повтор слов в предложениях
+others=Прочее
+numsep=Разделители групп разрядов (ISO) для чисел
+quotation=Кавычки
+

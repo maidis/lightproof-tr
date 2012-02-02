@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
+<script:module xmlns:script="http://openoffice.org/2000/script" script:name="General" script:language="StarBasic">&apos; László Németh (c) 2012, License: MPL/LGPL/GPL
+
+Sub Compile()
+	Update(False)
+End Sub
+
+Sub CompileAll()
+	Update(True)
+End Sub
+
+Sub Update(all)
+	c = ThisComponent.CurrentController.getViewCursor()
+	Dim prop
+	prop = ThisComponent.getDocumentProperties()
+	locale = ThisComponent.StyleFamilies.getByName(&quot;ParagraphStyles&quot;).getByName(&quot;Standard&quot;).CharLocale
+	Dim values(1) As New com.sun.star.beans.PropertyValue
+	rules = ThisComponent.Text.getString()
+	if InStr(rules, &quot;→&quot;) Then Replace(&quot;→&quot;, &quot;-&gt;&quot;)
+	if InStr(rules, &quot;←&quot;) Then Replace(&quot;←&quot;, &quot;&lt;-&quot;)
+	rules = ThisComponent.Text.getString()
+	if all Then Replace(&quot;\&lt;option\([^)]*\)&quot;, &quot;True&quot;)
+	values(0).Name = &quot;Update&quot;
+	values(0).Value = ThisComponent.Text.getString()
+	&apos;spellchecker = createUnoService(&quot;com.sun.star.linguistic2.SpellChecker&quot;)
+	proofreader = createUnoService(&quot;org.openoffice.comp.pyuno.Lightproof.lightproof_editor&quot;)
+	result = proofreader.doProofreading(0, rules, locale, 0, len(rules), values())
+	ThisComponent.Text.setString(rules)
+	SetStyle()
+	Replace(&quot;\n&quot;, &quot;\n&quot;) &apos; convert new lines to paragraph breaks
+	If result.aText &lt;&gt; &quot;&quot; Then
+		If result.aText &lt;&gt; rules Then
+			MsgBox result.aText + &quot; in line &quot; + result.nStartOfSentencePosition
+			SetLine(result.nStartOfSentencePosition)
+		End If
+	End If
+End Sub
+
+Sub Debug()
+	c = ThisComponent.CurrentController.getViewCursor()
+	Dim prop
+	prop = ThisComponent.getDocumentProperties()
+	locale = ThisComponent.StyleFamilies.getByName(&quot;ParagraphStyles&quot;).getByName(&quot;Standard&quot;).CharLocale
+	Dim values(1) As New com.sun.star.beans.PropertyValue
+	rules = ThisComponent.Text.getString()
+	&apos;if InStr(rules, &quot;→&quot;) Then Replace(&quot;→&quot;, &quot;-&gt;&quot;)
+	&apos;if InStr(rules, &quot;←&quot;) Then Replace(&quot;←&quot;, &quot;&lt;-&quot;)
+	&apos;if all Then Replace(&quot;\&lt;option\([^)]*\)&quot;, &quot;True&quot;)
+	values(0).Name = &quot;Debug&quot;
+	values(0).Value = ThisComponent.Text.getString()
+	&apos;spellchecker = createUnoService(&quot;com.sun.star.linguistic2.SpellChecker&quot;)
+	proofreader = createUnoService(&quot;org.openoffice.comp.pyuno.Lightproof.lightproof_editor&quot;)
+	result = proofreader.doProofreading(0, rules, locale, 0, len(rules), values())
+	ThisComponent.Text.setString(rules)
+	SetStyle()
+	Replace(&quot;\n&quot;, &quot;\n&quot;) &apos; convert new lines to paragraph breaks
+	If result.aText &lt;&gt; &quot;&quot; Then
+		If result.aText &lt;&gt; rules Then
+			MsgBox result.aText + &quot; in line &quot; + result.nStartOfSentencePosition
+			SetLine(result.nStartOfSentencePosition)
+		Else
+			MsgBox &quot;Ok&quot;
+		End If
+	End If
+End Sub
+
+
+
+Sub SetStyle()
+	target = ThisComponent.StyleFamilies.getByName(&quot;ParagraphStyles&quot;).getByName(&quot;Standard&quot;)
+	source = ThisComponent.StyleFamilies.getByName(&quot;ParagraphStyles&quot;).getByName(&quot;Preformatted Text&quot;)
+	if target.CharFontName &lt;&gt; source.CharFontName or target.CharHeight &lt;&gt; source.CharHeight then
+	target.CharFontName = source.CharFontName
+	target.CharHeight = source.CharHeight
+	end if
+End Sub
+
+Sub SetLine(n)
+&apos;    MsgBox &quot;hello&quot;
+	c = ThisComponent.Text.createTextCursor()
+&apos;	c = ThisComponent.CurrentController.getViewCursor
+	c.GoToStart(False)
+	For i = 2 to n
+	c.gotoNextParagraph(False)
+&apos;	c.gotoEndOfLine(False)
+&apos;	c.goRight(1, False)
+&apos;	c.setString(&quot;M&quot;)
+&apos;	MsgBox c.getString()
+	Next
+	ThisComponent.CurrentController.getViewCursor.gotoRange(c, False)
+End Sub
+
+
+sub Replace(s, s2)
+rem ----------------------------------------------------------------------
+rem define variables
+dim document   as object
+dim dispatcher as object
+rem ----------------------------------------------------------------------
+rem get access to the document
+document   = ThisComponent.CurrentController.Frame
+dispatcher = createUnoService(&quot;com.sun.star.frame.DispatchHelper&quot;)
+
+rem ----------------------------------------------------------------------
+dispatcher.executeDispatch(document, &quot;.uno:GoToStartOfDoc&quot;, &quot;&quot;, 0, Array())
+
+rem ----------------------------------------------------------------------
+dim args2(18) as new com.sun.star.beans.PropertyValue
+args2(0).Name = &quot;SearchItem.StyleFamily&quot;
+args2(0).Value = 2
+args2(1).Name = &quot;SearchItem.CellType&quot;
+args2(1).Value = 0
+args2(2).Name = &quot;SearchItem.RowDirection&quot;
+args2(2).Value = true
+args2(3).Name = &quot;SearchItem.AllTables&quot;
+args2(3).Value = false
+args2(4).Name = &quot;SearchItem.Backward&quot;
+args2(4).Value = false
+args2(5).Name = &quot;SearchItem.Pattern&quot;
+args2(5).Value = false
+args2(6).Name = &quot;SearchItem.Content&quot;
+args2(6).Value = false
+args2(7).Name = &quot;SearchItem.AsianOptions&quot;
+args2(7).Value = false
+args2(8).Name = &quot;SearchItem.AlgorithmType&quot;
+args2(8).Value = 1
+args2(9).Name = &quot;SearchItem.SearchFlags&quot;
+args2(9).Value = 65536
+args2(10).Name = &quot;SearchItem.SearchString&quot;
+args2(10).Value = s
+args2(11).Name = &quot;SearchItem.ReplaceString&quot;
+args2(11).Value = s2
+args2(12).Name = &quot;SearchItem.Locale&quot;
+args2(12).Value = 255
+args2(13).Name = &quot;SearchItem.ChangedChars&quot;
+args2(13).Value = 2
+args2(14).Name = &quot;SearchItem.DeletedChars&quot;
+args2(14).Value = 2
+args2(15).Name = &quot;SearchItem.InsertedChars&quot;
+args2(15).Value = 2
+args2(16).Name = &quot;SearchItem.TransliterateFlags&quot;
+args2(16).Value = 1280
+args2(17).Name = &quot;SearchItem.Command&quot;
+args2(17).Value = 3
+args2(18).Name = &quot;Quiet&quot;
+args2(18).Value = true
+
+dispatcher.executeDispatch(document, &quot;.uno:ExecuteSearch&quot;, &quot;&quot;, 0, args2())
+
+
+end sub
+</script:module>
