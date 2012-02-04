@@ -1,3 +1,6 @@
+2012-02-04  László Németh <nemeth@numbertext.org>:
+        - fix multiple suggestions, the problem reported by Yakov Reztsov 
+
 2012-02-02  László Németh <nemeth@numbertext.org>:
         - Lightproof editor (rule development extension for LibreOffice)
         - use template and config system, based on

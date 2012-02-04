@@ -161,9 +161,9 @@ def proofread( nDocId, TEXT, LOCALE, nStartOfSentencePos, nSuggestedSentenceEndP
                         aErr.aRuleIdentifier    = str(i[0])
                         iscap = (i[-1] and m.group(0)[0:1].isupper())
                         if i[1][0:1] == "=":
-                            aErr.aSuggestions = tuple(cap(eval(i[1][1:]).split("\\n"), iscap, LOCALE))
+                            aErr.aSuggestions = tuple(cap(eval(i[1][1:]).split("\n"), iscap, LOCALE))
                         else:
-                            aErr.aSuggestions = tuple(cap(m.expand(i[1]).split("\\n"), iscap, LOCALE))
+                            aErr.aSuggestions = tuple(cap(m.expand(i[1]).split("\n"), iscap, LOCALE))
                         comment = i[2]
                         if comment[0:1] == "=":
                             comment = eval(comment[1:])
