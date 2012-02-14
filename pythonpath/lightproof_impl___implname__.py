@@ -46,7 +46,7 @@ def onlymorph(st):
 # return the last matched substring
 def _morph(rLoc, word, pattern, all, onlyaffix):
     global analyses
-    if word == None:
+    if not word:
         return None
     if word not in analyses:
         x = spellchecker.spell(u"<?xml?><query type='analyze'><word>" + word + "</word></query>", rLoc, ())
@@ -55,8 +55,8 @@ def _morph(rLoc, word, pattern, all, onlyaffix):
         t = x.getAlternatives()
         if not t:
             t = [""]
-        analyses[word] = t[0]
-    a = analyses[word].split("</a>")[:-1]
+        analyses[word] = t[0].split("</a>")[:-1]
+    a = analyses[word]
     result = None
     p = re.compile(pattern)
     for i in a:
@@ -78,14 +78,14 @@ def affix(rLoc, word, pattern, all=True):
     return _morph(rLoc, word, pattern, all, True)
 
 def spell(rLoc, word):
-    if word == None:
+    if not word:
         return None
     return spellchecker.isValid(word, rLoc, ())
 
 # get the tuple of the stem of the word or an empty array
 def stem(rLoc, word):
     global stems
-    if word == None:
+    if not word:
         return []
     if not word in stems:
         x = spellchecker.spell(u"<?xml?><query type='stem'><word>" + word + "</word></query>", rLoc, ())
@@ -99,7 +99,7 @@ def stem(rLoc, word):
 
 # get the tuple of the morphological generation of a word or an empty array
 def generate(rLoc, word, example):
-    if word == None:
+    if not word:
         return []
     x = spellchecker.spell(u"<?xml?><query type='generate'><word>" + word + "</word><word>" + example + "</word></query>", rLoc, ())
     if not x:
@@ -112,7 +112,7 @@ def generate(rLoc, word, example):
 # get suggestions
 def suggest(rLoc, word):
     global suggestions
-    if word == None:
+    if not word:
         return word
     if word not in suggestions:
         x = spellchecker.spell("_" + word, rLoc, ())
@@ -126,14 +126,14 @@ def suggest(rLoc, word):
 def word(s, n):
     a = re.match("(?u)( [-.\w%%]+){" + str(n-1) + "}( [-.\w%%]+)", s)
     if not a:
-        return None
+        return ''
     return a.group(2)[1:]
 
 # get the (-)nth word of the input string or None
 def wordmin(s, n):
     a = re.search("(?u)([-.\w%%]+ )([-.\w%%]+ ){" + str(n-1) + "}$", s)
     if not a:
-        return None
+        return ''
     return a.group(1)[:-1]
 
 def calc(funcname, par):
@@ -162,11 +162,15 @@ def proofread( nDocId, TEXT, LOCALE, nStartOfSentencePos, nSuggestedSentenceEndP
                         iscap = (i[-1] and m.group(0)[0:1].isupper())
                         if i[1][0:1] == "=":
                             aErr.aSuggestions = tuple(cap(eval(i[1][1:]).split("\n"), iscap, LOCALE))
+                        elif i[1] == "_":
+                            aErr.aSuggestions = ()
                         else:
                             aErr.aSuggestions = tuple(cap(m.expand(i[1]).split("\n"), iscap, LOCALE))
                         comment = i[2]
                         if comment[0:1] == "=":
                             comment = eval(comment[1:])
+                        else:
+                            comment = m.expand(comment)
                         aErr.aShortComment      = comment.split("\\n")[0].strip()
                         aErr.aFullComment       = comment.split("\\n")[-1].strip()
                         if "://" in aErr.aFullComment:

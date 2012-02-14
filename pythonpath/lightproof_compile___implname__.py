@@ -44,7 +44,9 @@ def mysplit(s, line, oldline, debug):
             c = c.start(c.lastindex - 1)
         except:
             c = c.start()
-        com = prepare_for_eval(s[c+2:].strip())
+        com = s[c+2:].strip()
+        if com[0:1] == "=":
+            com = prepare_for_eval(com)
         s = s[:c]
     m1 = re.search("<-", s)
     m2 = re.search("->", s)

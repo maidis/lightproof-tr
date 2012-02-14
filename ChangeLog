@@ -1,3 +1,9 @@
+2012-02-12  Olivier Ronez <dicollecte.org>:
+        - back references in explanations, eg. # \1 should be...
+        - display message without suggestion, eg. # foo -> _ # Message
+        - function word() returns '' instead of None
+        - add .gitignore
+
 2012-02-04  László Németh <nemeth@numbertext.org>:
         - fix multiple suggestions, the problem reported by Yakov Reztsov 
 
@@ -5,7 +11,7 @@
         - Lightproof editor (rule development extension for LibreOffice)
         - use template and config system, based on
           the work of Olivier Ronez, author of French
-          grammar checker Dicollecte.
+          grammar checker Grammalecte.
         - code cleanups
         - move user code to different module to speed up
           its load (submodules use Python pyc format)

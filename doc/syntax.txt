@@ -90,11 +90,23 @@ foo\w+ -> = '"' + \0.upper() + '"' # With uppercase letters and quoation marks
 All words beginning with "foo" will be recognized, and the suggestion is
 the uppercase form of the string with ASCII quoation marks: eg. foom -> "FOOM".
 
+== No suggestion ==
+
+You can display message without making suggestions. For this purpose, use a single character _ in the replacement field.
+
+Example:
+
+foobar -> _ # Message
+
 == Longer explanations ==
 
 Warning messages can contain optional URLs for longer explanations separated by "\n":
 
 (your|her|our|their)['’]s -> \1s # Possessive pronoun: \n http://en.wikipedia.org/wiki/Possessive_pronoun
+
+== Back references in explanations ==
+
+(fooo) bar -> foo bar # “\1” should be:
 
 == Default variables ==
 
