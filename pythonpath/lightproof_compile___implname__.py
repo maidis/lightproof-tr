@@ -36,6 +36,7 @@ def mysplit(s, line, oldline, debug):
     dec = 0
     exprep = 0 # replacement is a Python expression (beginning with sign =)
     condition = False
+    ngroup = 0 # back reference group number that will be used for error positioning
     # description
     c = re.search("\s#\s", s)
     com = u""
@@ -49,7 +50,7 @@ def mysplit(s, line, oldline, debug):
             com = prepare_for_eval(com)
         s = s[:c]
     m1 = re.search("<-", s)
-    m2 = re.search("->", s)
+    m2 = re.search("-\d*>", s)
     if m1 and m2:
         condition = prepare_for_eval(s[m1.end(0): m2.start(0)].strip())
         s = s[0:m1.start(0)] + s[m2.start(0):]
@@ -61,7 +62,7 @@ def mysplit(s, line, oldline, debug):
         s1 = s[1:pos+1]
         s2 = s[pos+2:].strip()
     else:
-        m = re.compile("->").search(s)
+        m = re.compile("-\d*>").search(s)
         if not m:
             m = re.compile("[_a-zA-Z][_a-zA-Z0-9]*").match(s)
             if not m:
@@ -83,9 +84,11 @@ def mysplit(s, line, oldline, debug):
                 tests += [[s1[5:].strip(), s[m.end(0):].strip(), oldline]]
                 return None
             s2 = s[m.start(0):].strip()
-    m = re.compile("->").match(s2)
+    m = re.compile("-(\d*)>").match(s2)
     if dec!= 1 and m:
         s2 = s2[m.end(0):].strip()
+        if m.group(1):
+            ngroup = int(m.group(1))
     elif dec!=1:
         # syntax error
         return oldline
@@ -170,8 +173,8 @@ def mysplit(s, line, oldline, debug):
     except Exception as e:
         raise Exception(str(e), oldline)
     if debug:
-        return [s1, s2, com, condition, oldline]
-    return [s1, s2, com, condition]
+        return [s1, s2, com, condition, ngroup, oldline]
+    return [s1, s2, com, condition, ngroup]
 
 # group renum (<groupname> -> <groupname_1> etc.)
 def renum(regex, s1, beg):

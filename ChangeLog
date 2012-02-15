@@ -1,6 +1,9 @@
+2012-02-15  Olivier Ronez <dicollecte.org>:
+        - new: error positioning, underline a back reference group instead of the full pattern
+
 2012-02-12  Olivier Ronez <dicollecte.org>:
         - back references in explanations, eg. # \1 should be...
-        - display message without suggestion, eg. # foo -> _ # Message
+        - display message without suggestion, eg.  foo -> _ # Message
         - function word() returns '' instead of None
         - add .gitignore
 

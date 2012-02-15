@@ -150,13 +150,16 @@ def proofread( nDocId, TEXT, LOCALE, nStartOfSentencePos, nSuggestedSentenceEndP
     aErrs = []
     s = TEXT[nStartOfSentencePos:nSuggestedSentenceEndPos]
     for i in get_rule(LOCALE).dic:
+        # 0: regex,  1: replacement,  2: message,  3: condition,  4: ngroup,  (5: oldline),  6: case sensitive ?
         if i[0] and not str(i[0]) in ignore:
             for m in i[0].finditer(s):
                 try:
                     if not i[3] or eval(i[3]):
                         aErr = uno.createUnoStruct( "com.sun.star.linguistic2.SingleProofreadingError" )
                         aErr.nErrorStart        = nStartOfSentencePos + m.start(0) # nStartOfSentencePos
-                        aErr.nErrorLength       = m.end(0) - m.start(0)
+                        aErr.nErrorLength       = m.end(i[4]) - m.start(i[4])
+                        if i[4]:
+                            aErr.nErrorStart   += m.start(i[4])
                         aErr.nErrorType         = PROOFREADING
                         aErr.aRuleIdentifier    = str(i[0])
                         iscap = (i[-1] and m.group(0)[0:1].isupper())
@@ -183,8 +186,8 @@ def proofread( nDocId, TEXT, LOCALE, nStartOfSentencePos, nSuggestedSentenceEndP
                             aErr.aProperties        = ()
                         aErrs = aErrs + [aErr]
                 except Exception as e:
-                    if len(i) == 6:
-                        raise Exception(str(e), i[4])
+                    if len(i) == 7:
+                        raise Exception(str(e), i[5])
                     raise
 
     return tuple(aErrs)

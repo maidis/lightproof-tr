@@ -166,6 +166,32 @@ E ( |$)                       # name definition: space or end of sentence
 
 See src/en/en.dat for more examples.
 
+= Error positioning =
+
+By default, the full pattern will be underlined with blue.
+You can shorten the underlined text aera by specifying a back reference group of the pattern.
+Instead of writing ->, write -n>  n being the number of a back reference group.
+Actually,  ->  is similar to  -0>
+
+Example
+(ying) and yang -1> yin # Did you mean:
+
+== Comparison ==
+
+Rule 1:
+ying and yang -> yin and yang # Did you mean:
+
+Rule 2:
+(ying) and yang -1> yin # Did you mean:
+
+With the rule 1, the full pattern is underlined:
+    ying and yang
+    ^^^^^^^^^^^^^
+
+With the rule 2, only the first back reference group is underlined:
+    ying and yang
+    ^^^^
+
 = Conditions =
 
 A Lightproof condition is a Python condition with some modifications:
