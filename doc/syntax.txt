@@ -169,7 +169,7 @@ See src/en/en.dat for more examples.
 = Error positioning =
 
 By default, the full pattern will be underlined with blue.
-You can shorten the underlined text aera by specifying a back reference group of the pattern.
+You can shorten the underlined text area by specifying a back reference group of the pattern.
 Instead of writing ->, write -n>  n being the number of a back reference group.
 Actually,  ->  is similar to  -0>
 
