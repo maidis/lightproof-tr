@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
 
-tree = ET.parse("grammar.xml") # parsing grammar.xml into an ElementTree instance
+tree = ET.parse("1.xml") # parsing grammar.xml into an ElementTree instance
 
 # list all rules with simple tokens
 for rule in tree.iter("rule"):  # cycle for all <rule> elements of grammar.xml, variable rule contains the data of the actual element
@@ -10,6 +10,14 @@ for rule in tree.iter("rule"):  # cycle for all <rule> elements of grammar.xml, 
       simple = False  # the rule is not simple
   if simple:
     for token in rule.iter("token"):
-      print "(%s)" % token.text,
+      for child in rule:
+        if child.tag == 'token':
+            print "%s" % child.text
+        elif child.tag == 'marker':
+            print "("
+            for subchild in child:
+                if subchild.tag == 'token':
+                    print "%s" % subchild.text
+            print ")"
+      print "%s" % token.text,
     print "->", rule.find('message').find('suggestion').text, "# Did you mean?"
-
