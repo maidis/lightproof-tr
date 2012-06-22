@@ -1,0 +1,16 @@
+<rule>
+        <pattern>
+          <token>xxx</token>
+          <token>To</token>
+	<marker>
+          <token>being</token>
+          <token>with</token>
+	</marker>
+          <token>,</token>
+        </pattern>
+        <message>Did you mean <suggestion>begin</suggestion>?</message>
+        <short>Possible typo</short>
+        <example correction="begin" type="incorrect">To
+<marker>being</marker> with, she is a Russian spy.</example>
+        <example type="correct">To begin with, she's a spy.</example>
+      </rule>

@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
 
-tree = ET.parse("1.xml") # parsing grammar.xml into an ElementTree instance
+tree = ET.parse("test.xml") # parsing grammar.xml into an ElementTree instance
 
 # list all rules with simple tokens
 for rule in tree.iter("rule"):  # cycle for all <rule> elements of grammar.xml, variable rule contains the data of the actual element
