@@ -14,6 +14,8 @@ def cleaner(a):
   a = string.replace(a," ,",",")
   a = string.replace(a," .",".")
   a = string.replace(a," ???","")
+  a = string.replace(a," (???)","")
+  a = string.replace(a,"??? ","")
   return a
 
 for rule in tree.iter("rule"):
@@ -40,7 +42,6 @@ for rule in tree.iter("rule"):
     	pattern += ["%s" % (item.text or "???")]
   if pattern:
     try:
-      print pattern
       print cleaner(pattern), "-%d>" % markerpos, poscorr(rule.find('message').find('suggestion').text, markerpos), "# Did you mean?"
     except:
       print "# Did you mean?"
