@@ -1,23 +1,47 @@
 import xml.etree.ElementTree as ET
+import string
+import re
 
-tree = ET.parse("test.xml") # parsing grammar.xml into an ElementTree instance
+tree = ET.parse("grammar.xml")
 
-# list all rules with simple tokens
-for rule in tree.iter("rule"):  # cycle for all <rule> elements of grammar.xml, variable rule contains the data of the actual element
-  simple = True  # simple rule is a rule with tokens without attributes (see documentaton of LanguageTool grammar.xml)
-  for token in rule.iter("token"): # cycle for all tokens in the actual rule, variable token contains the data of the actual <token> element
-    if token.attrib and token.attrib.keys() != ["regexp"]: # if attrib is not an empty dict (attrib is the Python dict of attributes of the XML element, see ElementTree doc), regexp is supported by the parethesized tokens in the output
-      simple = False  # the rule is not simple
-  if simple:
-    for token in rule.iter("token"):
-      for child in rule:
-        if child.tag == 'token':
-            print "%s" % child.text
-        elif child.tag == 'marker':
-            print "("
-            for subchild in child:
-                if subchild.tag == 'token':
-                    print "%s" % subchild.text
-            print ")"
-      print "%s" % token.text,
-    print "->", rule.find('message').find('suggestion').text, "# Did you mean?"
+def poscorr(s, markerpos): # increase group positions in the replacement string, if needed
+  if markerpos:
+    return re.sub(r"(?<=\\)([%d-9])" % markerpos, lambda r: str(int(r.group(0)) + 1), s)
+  return s
+  
+def cleaner(a):
+  a = ' '.join(a)
+  a = string.replace(a," ,",",")
+  a = string.replace(a," .",".")
+  a = string.replace(a," ???","")
+  return a
+
+for rule in tree.iter("rule"):
+  pattern = []
+  for markertrue in rule.findall('pattern/marker'):
+      if markertrue.tag == "marker":
+	continue
+#  if rule.find('pattern/marker') is None:  # check only rules with <marker>
+#    continue
+  markerpos = 0
+  n = 0
+  for item in rule.findall('pattern/*'):
+    n += 1
+    if item.attrib and item.attrib.keys() != ["regexp"]: 
+      pattern = []
+      break
+    if item.tag == 'marker':
+	markerpos = n
+	for i in item.iter('token'):
+	    pattern += ["%s" % (i.text or "???")]
+	pattern[n - 1] = "(" + pattern[n - 1]
+	pattern[-1] += ')'
+    else:
+    	pattern += ["%s" % (item.text or "???")]
+  if pattern:
+    try:
+      print pattern
+      print cleaner(pattern), "-%d>" % markerpos, poscorr(rule.find('message').find('suggestion').text, markerpos), "# Did you mean?"
+    except:
+      print "# Did you mean?"
+
