@@ -162,7 +162,7 @@ def proofread( nDocId, TEXT, LOCALE, nStartOfSentencePos, nSuggestedSentenceEndP
                             aErr.nErrorStart   += m.start(i[4])
                         aErr.nErrorType         = PROOFREADING
                         aErr.aRuleIdentifier    = str(i[0])
-                        iscap = (i[-1] and m.group(0)[0:1].isupper())
+                        iscap = (i[-1] and m.group(i[4])[0:1].isupper())
                         if i[1][0:1] == "=":
                             aErr.aSuggestions = tuple(cap(eval(i[1][1:]).split("\n"), iscap, LOCALE))
                         elif i[1] == "_":
