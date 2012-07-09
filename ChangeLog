@@ -1,3 +1,14 @@
+2012-07-09  László Németh <nemeth@numbertext.org>:
+        - fix positions of underlining of part of the matched pattern:
+          (foo) (bar) -2> baz # Did you mean?
+        - "|" as alternative separator of suggestions
+          foo -> bar|baz # Did you mean?
+        - print depends from PYUNO_DEBUG_LEVEL (fix for Windows)
+        - print() for future Python 3 support
+
+2012-05-27  Olivier Ronez <dicollecte.org>:
+        - fix: suggestion with capital is based on selected back reference group
+
 2012-02-15  Olivier Ronez <dicollecte.org>:
         - new: error positioning, underline a back reference group instead of the full pattern
 

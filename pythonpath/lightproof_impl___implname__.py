@@ -156,26 +156,24 @@ def proofread( nDocId, TEXT, LOCALE, nStartOfSentencePos, nSuggestedSentenceEndP
                 try:
                     if not i[3] or eval(i[3]):
                         aErr = uno.createUnoStruct( "com.sun.star.linguistic2.SingleProofreadingError" )
-                        aErr.nErrorStart        = nStartOfSentencePos + m.start(0) # nStartOfSentencePos
+                        aErr.nErrorStart        = nStartOfSentencePos + m.start(i[4]) # nStartOfSentencePos
                         aErr.nErrorLength       = m.end(i[4]) - m.start(i[4])
-                        if i[4]:
-                            aErr.nErrorStart   += m.start(i[4])
                         aErr.nErrorType         = PROOFREADING
                         aErr.aRuleIdentifier    = str(i[0])
                         iscap = (i[-1] and m.group(i[4])[0:1].isupper())
                         if i[1][0:1] == "=":
-                            aErr.aSuggestions = tuple(cap(eval(i[1][1:]).split("\n"), iscap, LOCALE))
+                            aErr.aSuggestions = tuple(cap(eval(i[1][1:]).replace('|', "\n").split("\n"), iscap, LOCALE))
                         elif i[1] == "_":
                             aErr.aSuggestions = ()
                         else:
-                            aErr.aSuggestions = tuple(cap(m.expand(i[1]).split("\n"), iscap, LOCALE))
+                            aErr.aSuggestions = tuple(cap(m.expand(i[1]).replace('|', "\n").split("\n"), iscap, LOCALE))
                         comment = i[2]
                         if comment[0:1] == "=":
                             comment = eval(comment[1:])
                         else:
                             comment = m.expand(comment)
-                        aErr.aShortComment      = comment.split("\\n")[0].strip()
-                        aErr.aFullComment       = comment.split("\\n")[-1].strip()
+                        aErr.aShortComment      = comment.replace('|', '\\n').split("\\n")[0].strip()
+                        aErr.aFullComment       = comment.replace('|', '\\n').split("\\n")[-1].strip()
                         if "://" in aErr.aFullComment:
                             p = PropertyValue()
                             p.Name = "FullCommentURL"
@@ -217,7 +215,8 @@ def compile_rules(dic):
                 i += [False]
             i[0] = re.compile(i[0])
         except:
-            print "Lightproof: bad regular expression: ", traceback.format_exc()
+            if 'PYUNO_LOGLEVEL' in os.environ:
+                print("Lightproof: bad regular expression: ", traceback.format_exc())
             i[0] = None
 
 def get_rule(loc):

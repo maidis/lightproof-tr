@@ -2,7 +2,7 @@
 # Lightproof grammar checker for LibreOffice and OpenOffice.org
 # 2009-2012 (c) László Németh (nemeth at numbertext org), license: MPL 1.1 / GPLv3+ / LGPLv3+
 
-import uno, unohelper, sys, traceback
+import uno, unohelper, os, sys, traceback
 from lightproof_impl_${implname} import locales
 from lightproof_impl_${implname} import pkg
 import lightproof_impl_${implname}
@@ -113,7 +113,8 @@ class Lightproof( unohelper.Base, XProofreader, XServiceInfo, XServiceName, XSer
                 aRes.aText = ""
                 return aRes
             except:
-                print traceback.format_exc()
+                if 'PYUNO_LOGLEVEL' in os.environ:
+                    print(traceback.format_exc())
 
         l = rText[nSuggestedSentenceEndPos:nSuggestedSentenceEndPos+1]
         while l == " ":
@@ -130,7 +131,8 @@ class Lightproof( unohelper.Base, XProofreader, XServiceInfo, XServiceName, XSer
             if len(rProperties) > 0 and rProperties[0].Name == "Debug" and len(e.args) == 2:
                 aRes.aText, aRes.nStartOfSentencePosition = e
             else:
-                print traceback.format_exc()
+                if 'PYUNO_LOGLEVEL' in os.environ:
+                    print(traceback.format_exc())
         return aRes
 
     def ignoreRule(self, rid, aLocale):
