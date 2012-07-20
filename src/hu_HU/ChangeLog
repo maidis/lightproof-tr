@@ -1,0 +1,124 @@
+2012-02-02  László Németh <nemeth@numbertext.org>:
+- rövidebb magyarázat a „több mint” esetén + URL
+- "-szám" alakoknál nem feltételez kötőjeles felsorolást
+
+2011-12-16  László Németh <nemeth@numbertext.org>:
+- beállítások csak a kiterjesztéskezelőben hozzáférhetők ideiglenesen
+
+- webes bővebb magyarázatok támogatása (FullCommentURL) a LibO 3.5-ben,
+  pl. Fertő-tavi -> AkH. a Wikipédiában.
+
+- új opciók:
+    - nagy kezdőbetű: mondatok kis kezdőbetűjének keresése
+    - zárójelpárok és idézőjelek ellenőrzése
+    - nem elválasztott szavak elválasztását kínálja fel (pl. 
+      megint -> me-gint, meg-int)
+
+- új szabályok:
+    - időről-időre, egytől-egyig -> időről időre, egytől egyig
+    - földrajzi nevek (Dél-Ázsiai -> Dél-ázsiai, Árpád-híd -> Árpád híd stb.)
+    - 1-e -> 1-je
+    - egyel kevesebb/több -> eggyel
+    - előre hátra -> előre-hátra
+    - ex-alelnök -> exalelnök stb.
+    - "kell hogy" esetén nem erőlteti az esetenként hibás vesszőt
+
+- javított szabályok:
+    - a/az névelőt csak a helyesírási szótárban meglévő szavak előtt ellenőriz
+
+- új licenc: MPL/GPL/LGPL
+
+2011-07-11  László Németh <nemeth@numbertext.org>:
+
+- javított csomagnév (Magyar nyelvi ellenőrzés)
+
+- új opciók:
+  - három pont
+  - dupla szóköz, sok szóköz
+  - idézőjelek, nagykötőjel
+  - törtek, indexek
+  - mínuszjel
+  - szóismétlés (egymást közvetlenül követő szavak)
+  - mértékegységek
+
+- 2003. Március -> 2003. március: hónap neve kisbetűvel jelenik meg a javaslatban is
+- javaslat: a Unikum -> nagybetűvel jelenik meg, ahogy a szövegben szerepelt
+- 2005 március-júniusa már nem hibásnak jelezve
+- a Unicode, a Unix most már nem hibás a névelővel sem
+- illetve hogy, illetve ha vessző nélkül
+- áld meg,  mond el -> áldd meg, mondd el, ha a felszólítás felismerhető (mondat,
+  tagmondathatár, esetleg "ne" szócskával bevezetve)
+- jó kedvel, rossz kedvel -> jó kedvvel, rossz kedvvel
+- halott róla, nem halottunk semmit -> hallott róla, nem hallottunk semmit
+- C-vitamin hiány -> C-vitamin-hiány
+- C-vitaminhiány -> C-vitamin-hiány (minden egybeírt összetételnél)
+- médiák, unszimpatikus kijelzése az opcionális stílusellenőrzésbe került
+- Budapest Liszt Ferenc Nemzetközi Repülőtér -> a többszörös helyesírási hiba kijelzése
+- felsorolások kötőjele, nagykötőjele aláhúzva egybeírás esetén: -Egy -> – Egy
+- 2011 július -> 2011. július (a július hiányzott az ellenőrzőtt hónapnevek közül)
+- kellet -> kellett (*nem kellet volna, *meg kellet ezt csinálnom, *várni is kellet
+- mértékegységek (mérföld, yard, láb, hüvelyk, °F, font súlyú, gallon, pint) átalakítása
+
+2010-05-06  László Németh <nemeth@openoffice.org>:
+    - alapértelmezett ezreselválasztó-ellenőrzés kikapcsolása (Magyar
+      Linux Libertine G Graphite automatikus ezreselválasztása miatt)
+
+2010-02-19  László Németh <nemeth@openoffice.org>:
+    * hu_HU.dat:
+    - "a" névelő + szám szabály javítása ("a 10")
+      a regex match hiányzó $ jelének pótlásával
+    - nem törő szóköz beillesztése a Celsius fok elé
+    - a törtekre és egyéb jelekre vonatkozó tipográfiai opció bekapcsolása
+      esetén nem törő szóköz helyett nem törő keskeny szóközt javasol a számok
+      ezrestagolójaként, és ezt felismeri a pénzegység
+      konzisztenciaellenőrzésénél is, valamint a régi nem törő szóközök
+      cseréjét is javasolja.
+    - Unicode vessző ékezet felvétele a valódi aposztrófot javasló szabályba
+      (U+00B4 kódja miatt elöl van, és emiatt tévedésből könnyen beilleszthető)
+    - idézőjeles szabályok bővítése:
+	- ASCII idézőjelek cseréje:
+		,,valami >>volt<< ott.'' -> „valami »volt« ott.”
+	- felcserélt belső idézőjelek cseréje
+	- angolszász nem dupla idézőjelek cseréje
+    - számok konzisztencia-ellenőrzésénél nem törő szóközök helyes felismerése
+
+2010-02-12  László Németh <nemeth@openoffice.org>:
+    * hu_HU.dat:
+    - sorszámok névelőjének ellenőrzése ("az" esetén alapból még szükséges
+      az "oldal" stb. a sorszám után: pl. *"az 2. oldalon")
+
+    * lightproof_handler.py: segédosztály megszüntetése a Mac OS X PyUNO hiba
+      lehetséges okának kiküszöbölésére
+
+2010-02-09  László Németh <nemeth@openoffice.org>:
+    * hu_HU.dat:
+    - mínuszjel
+    - szorzásjel javítása szóközök esetén is: 5 x 6 -> 5×6
+    - hibás névelőjavaslat tiltása római számoknál (a II., a III. stb.)
+    - új feltételes szabályok: ligatúrák javaslata és elutasítása
+    - nem törő szóköz és toldalékolás esetén is javasolva van a százalékjel
+      tapadása;
+    - javaslat évszámok előtti aposztróf esetén is ('76-ban)
+    - pénznemek 1234,00 Ft és sima szóköz elfogadása, mint ezres tagoló
+      (nem törő szóköz már korábban így volt kezelve): 34 500 Ft
+    - fokjel javítása és egybeírása
+    - törtek (ha van csak Unicode karakterrel, pl. 1/2, 
+      egyébként ha 1/x-ed, akkor "1/" Unicode karakterrel és alsó index
+      Unicode karakterrel, különben felső index, törtjel és alsó index
+      karakterekkel), indexek (H2O, H2SO4 stb.), fokok (Celsius, Fahrenheit
+      jele külön Unicode karakterrel (szebb tipográfiájú pl. a Linux Libertine
+      betűtípusban)
+
+    * hu_HU.dlg: új feltételes szabályok:
+    - ligatúrák javaslata és elutasítása
+    - törtek, indexek, fokok menüpont
+
+    - átcsoportosítás
+
+2009-12-16  László Németh <nemeth@openoffice.org>:
+    * hu_HU.dlg:
+    - Beállítások menü a magyar nyelvi ellenőrzéshez
+
+    * hu_HU.dat:
+    - opcionális szabályok: szóismétlés, képzett
+      összetett szavak, (tizedes)vesszők ellenőrzése, stb.

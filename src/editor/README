@@ -1,0 +1,75 @@
+Lightproof grammar checker rule editor for LibreOffice
+
+source: git://anongit.freedesktop.org/libreoffice/lightproof
+
+or see cgit.freedesktop.org/libreoffice
+
+version 0.1 (2012-02-02)
+
+2009–2012 (c) László Németh (nemeth at numbertext dot org), license: MPL 1.1 / GPLv3+ / LGPLv3+
+
+This software was developed with support from FSF.hu Foundation, Hungary.
+
+Introduction: http://libreoffice.hu/2011/12/08/grammar-checking-in-libreoffice/
+
+== Installation ==
+
+1. Via Tools -> Extension manager in OOo/LibreOffice
+
+2. or with unopkg tool, for example
+
+[install_path\program\]unopkg add -f lightproof_editor-0.1.oxt
+
+== Usage ==
+
+Note: there is a huge starting time (seconds) starting LibreOffice with the
+Lightproof editor. [Removing the unnecessary locales from src/editor/editor.cfg
+of Lightproof source and generating a new editor extension can solve this problem.]
+
+The Lightproof editor extension contains a special grammar checker component and
+a LibreOffice Writer toolbar. The editor can update its grammar checker component based
+on the Lightproof rules in the current Writer document.
+
+Note: for languages without 'official LibreOffice' Hunspell dictionaries or languages
+with default LibreOffice grammar checking (English, Russian and Hungarian in LibO 3.5)
+have to modify some settings, too, see doc/manual.txt in the zipped extension, or you
+can choose a neutral language (eg. Esperanto) for your Writer document during the rule
+development. Only the Hunspell-related Lightproof functions, eg. spell(), morph() need
+the correct language.
+
+After the successful installation (and settings), you can check the work of the grammar
+checking component of the editor with the following text:
+
+a a
+
+The repeating letters will be underlined with blue wavy line (thanks to the default
+a a -> a # Did you mean
+rule of the grammar checker component of the editor).
+
+Write the following Lightproof rule in an empty Writer document:
+
+b b -> b # suggestion
+
+Click on the first icon on the Lightproof editor toolbar. The 'b b' text will be
+underlined with blue wavy line as a grammar mistake with the 'b' suggestion and
+'suggestion' explanation. 
+
+Load and modify the English Lightproof rules (src/en/en.dat) or decribe new rules
+based on doc/syntax.txt (these files can be found in the oxt (zipped) file of the
+Lightproof editor extension, too). See also doc/manual.txt and
+http://libreoffice.hu/2011/12/08/grammar-checking-in-libreoffice/
+
+= Toolbar icons =
+
+1. Apply rules
+
+Compile and the default Lightproof rules in the current document and update the Lightproof
+editor grammar checker component.
+
+2. Apply all rules
+
+Compile and apply all (including optional) Lightproof rules in the current document and update the relevant component.
+
+3. Debug rules
+
+Check the current text and report run time errors (eg. in the Python conditions of the rules).
