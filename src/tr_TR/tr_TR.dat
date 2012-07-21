@@ -1,4 +1,4 @@
-# English sentence checking
+# Turkish sentence checking
 
 # word-level rules (case-sensitive)
 
@@ -10,12 +10,13 @@
 # pattern <- condition -> suggestion # warning message
 #
 
+
 # duplicates
 
-and and -> and # Did you mean:
-or or -> or # Did you mean:
-for for -> for # Did you mean:
-the the -> the # Did you mean:
+ve ve -> ve # Şunu mu demek istediniz:
+ya da ya da -> ya da # Şunu mu demek istediniz:
+veya veya -> veya # Şunu mu demek istediniz:
+için için -> için # Şunu mu demek istediniz:
 
 # word-level rules (case-insensitive)
 
