@@ -1,3 +1,11 @@
+2012-08-23 László Németh <nemeth@numbertext.org>:
+        - fix fdo#46542 ("an usability" instead of "a usability") reported by Roman Eisele
+        - fix fdo#46549 (allow "an habitual", too), reported by jacobwwood at fdo
+        - fixes for English and Hungarian modules
+
+2009-08-21  Yakov Reztsov <yr at myooo dot ru>
+	* src/ru_RU/*: fixes and new Russian grammar rules
+
 2012-07-09  László Németh <nemeth@numbertext.org>:
         - fix positions of underlining of part of the matched pattern:
           (foo) (bar) -2> baz # Did you mean?

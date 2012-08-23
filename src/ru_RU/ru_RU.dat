@@ -1,4 +1,4 @@
-# Sample proofreading rules for Russian (by Yakov Reztsov 2009, 2011)
+# Proofreading rules for Russian (by Yakov Reztsov 2009-2012)
 
 
 
@@ -47,13 +47,13 @@ adv1 кто|что|где|зачем|кое
 [ ]{abbr}[ ] <- option("abbreviation") -> " {abbr}. "         # Точка после сокращений.
 (^|\b|{punct}|[.]) {2,3}(\b|$) <- option("space") -> "\1 " # Лишний пробел.
 # Extra  space -> Extra space
-# " мм " -> " мм. "
+# " коп " -> " коп. "
 
 # quotation
 
-\"(\w[^\"“”]*[\w.?!,])\" <- option("quotation") -> «\1»\n„\1”\n“\1”	# Кавычки.
-\B'(\w[^']*[\w.?!,])'\B <- option("quotation") -> ‘\1’		# Кавычки.
-# "The 'old' boy"  -> „The ‘old’ boy”\n«The ‘old’ boy»\n“The ‘old’ boy”
+\"(\w[^\"“”]*[\w.?!,])\" <- option("quotation") -> «\1»	# Кавычки.
+\B'(\w[^']*[\w.?!,])'\B <- option("quotation") -> ‘\1’	# Кавычки.
+# "The 'old' boy"  -> «The ‘old’ boy»
 
 # apostrophe
 
@@ -107,24 +107,33 @@ w \w*
 # multiword expressions
 
 
-\bнорд ост\b <- option("hyphen") -> норд-ост\nнордост # Дефис?
-# норд ост -> норд-ост\nнордост # Suggestions separated by new lines (\n)
+\bнорд ост\b <- option("hyphen") -> норд-ост # Дефис?
+# норд ост -> норд-ост # Suggestions separated by new lines (\n)
 
-\bнорд вест\b <- option("hyphen") -> норд-вест\nнордвест # Дефис?
-# норд вест -> норд-вест\nнордвест # Suggestions separated by new lines (\n)
+\bнорд вест\b <- option("hyphen") -> норд-вест # Дефис?
+# норд вест -> норд-вест # Suggestions separated by new lines (\n)
 
-\bсеверо западн{abc}\b <- option("hyphen") -> северо-западн{abc}\nсеверозападн{abc} # Дефис?
-# северо западный -> северо-западный\nсеверозападный # Suggestions separated by new lines (\n)
+\bзюйд ост\b <- option("hyphen") -> зюйд-ост # Дефис?
+# зюйд ост -> зюйд-ост # Suggestions separated by new lines (\n)
+
+\bзюйд вест\b <- option("hyphen") -> зюйд-вест # Дефис?
+# зюйд вест -> зюйд-вест # Suggestions separated by new lines (\n)
 
 
-\bюго западн{abc}\b <- option("hyphen") -> юго-западн{abc}\nюгозападн{abc} # Дефис?
-# юго западный -> юго-западный\nюгозападный # Suggestions separated by new lines (\n)
 
-\bсеверо восточн{abc}\b <- option("hyphen") -> северо-восточн{abc}\nсеверовосточн{abc} # Дефис?
-# северо восточный -> северо-восточный\nсеверовосточный # Suggestions separated by new lines (\n)
 
-\bюго восточн{abc}\b <- option("hyphen") -> юго-восточн{abc}\nюговосточн{abc} # Дефис?
-# юго восточный -> юго-восточный\nюговосточный # Suggestions separated by new lines (\n)
+\bсеверо западн{abc}\b <- option("hyphen") -> северо-западн{abc} # Дефис?
+# северо западный -> северо-западный # Suggestions separated by new lines (\n)
+
+
+\bюго западн{abc}\b <- option("hyphen") -> юго-западн{abc} # Дефис?
+# юго западный -> юго-западный # Suggestions separated by new lines (\n)
+
+\bсеверо восточн{abc}\b <- option("hyphen") -> северо-восточн{abc} # Дефис?
+# северо восточный -> северо-восточный # Suggestions separated by new lines (\n)
+
+\bюго восточн{abc}\b <- option("hyphen") -> юго-восточн{abc} # Дефис?
+# юго восточный -> юго-восточный # Suggestions separated by new lines (\n)
 
 
 \b{adv1} нибудь\b <- option("hyphen") -> {adv1}-нибудь # Дефис?
@@ -196,6 +205,12 @@ w \w*
 
 
 
+(в) (течение) (реки|потока|воды|ручья) <- option("multiword") -> \1 течении \3 # Грамматическая ошибка 
+(в) (течении) (часа|минуты|промежутка|секунды|дня|времени|недели|месяца|года|столетия|тысячелетия) <- option("multiword") -> \1 течение \3 #  Грамматическая ошибка 
+(в) (продолжении) (часа|минуты|промежутка|секунды|дня|времени|недели|месяца|года|столетия|тысячелетия|разговора|беседы) <- option("multiword") -> \1 продолжение \3 #  Грамматическая ошибка 
+
+
+
 \bкакбудто<- option("together") -> как будто # Составная частица
 
 \bпо мимо\b <- option("together") -> помимо # Пишется слитно
@@ -241,8 +256,5 @@ W [-\w]{3,}
 
 # within clauses
 
-{W}(?: [-–\w“”]+)* \1 <- option("dup") -> {W} # Повтор слова?
+{W} \1 <- option("dup") -> {W} #  Повтор слова?
 
-# within sentences
-
-{W}[;,:]?(?: [-–\w“”]+[;,:]?)* \1 <- option("dup2") -> {W} # Повтор слова?

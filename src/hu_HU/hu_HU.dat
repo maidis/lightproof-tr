@@ -24,8 +24,8 @@ hogy-hogy -> hogyhogy # Egybeírás.
 	-> \1, hogy # Hiányzó vessző?
 
 # túl sok vessző
-([-\w]+), (ahelyett|anélkül|aszerint), hogy -> \1, \2 hogy\n\1 \2, hogy # Kötőszószerű kapcsolat esetén nem írunk a „hogy” elé vesszőt. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Az_írásjelek#243.
-([-\w]+), illetve, (ha|hogy) -> \1, illetve \2 # Kötőszószerű kapcsolat esetén nem írunk az „illetve” után vesszőt. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Az_írásjelek#243.
+([-\w]+), (ahelyett|anélkül|aszerint), hogy -> \1, \2 hogy|\1 \2, hogy # Kötőszószerű kapcsolat esetén nem írunk a „hogy” elé vesszőt. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Az_írásjelek#243.
+([-\w]+), illetve, (ha|hogy) -> \1, illetve \2 # Kötőszószerű kapcsolat esetén nem írunk az „illetve” után vesszőt. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Az_írásjelek#243.
 
 ###################### nagybetűsítés #################
 [code]
@@ -57,27 +57,27 @@ word [a-záéíóöőúüűA-ZÉÍÓÖŐÚÜŰ]\w*
 
 punct [?!,:;%‰‱°„”]
 
-"^[-—] " <- option("dash") -> "– "		# A gondolatjel nagykötőjel \n http://hu.wikipedia.org/wiki/Nagykötőjel
-" [-—]([ ,;])" <- option("dash") -> " –\1"	# A gondolatjel nagykötőjel \n http://hu.wikipedia.org/wiki/Nagykötőjel
+"^[-—] " <- option("dash") -> "– "		# A gondolatjel nagykötőjel | http://hu.wikipedia.org/wiki/Nagykötőjel
+" [-—]([ ,;])" <- option("dash") -> " –\1"	# A gondolatjel nagykötőjel | http://hu.wikipedia.org/wiki/Nagykötőjel
 # És - hogy is mondjam -, jó. -> És – hogy is mondjam –, jó.
 
-^[-–]{word} <- option("dash") -> – {word}		# Gondolatjel szóközzel a felsorolásnál \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Az_írásjelek#258.
+^[-–]{word} <- option("dash") -> – {word}		# Gondolatjel szóközzel a felsorolásnál | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Az_írásjelek#258.
 
-"[[][.][.][.]]" <- option("elli") -> […] 	# Három pont \n http://hu.wikipedia.org/wiki/Három_pont 
+"[[][.][.][.]]" <- option("elli") -> […] 	# Három pont | http://hu.wikipedia.org/wiki/Három_pont 
 # [...] -> […]
-[.][.][.] <- option("elli") -> …		# Három pont \n http://hu.wikipedia.org/wiki/Három_pont 
+[.][.][.] <- option("elli") -> …		# Három pont | http://hu.wikipedia.org/wiki/Három_pont 
 # Vége... -> Vége…
 
 " +([.?!,:;)”])\b" -> "\1 " 	# Felcserélt szóköz és írásjel?
-" +([.?!,:;)”])" -> \1		# Szóköz nélkül tapadó írásjel \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Az_írásjelek#239.
+" +([.?!,:;)”])" -> \1		# Szóköz nélkül tapadó írásjel | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Az_írásjelek#239.
 # A ( kicsit ) más. -> A (kicsit) más.
 
 E ( |$) # space or end of sentence
 "[:,;]([.?!,;:]){E}" -> \1{E}	# Felesleges írásjel.
-"\b[.][.]{E}" -> .{E}\n…{E}	# Pont vagy három pont? \n http://hu.wikipedia.org/wiki/Három_pont 
+"\b[.][.]{E}" -> .{E}|…{E}	# Pont vagy három pont? | http://hu.wikipedia.org/wiki/Három_pont 
 #"\b[.]([?!]){E}" -> \1{E}	# Felesleges írásjel.
 # És,, stb.? -> És, stb.?
-# És.. -> És.\n…
+# És.. -> És.|…
 
 (\w){punct}{Abc} -> \1{punct} {Abc}	# Hiányzó szóköz?
 {abc}[.]{ABC} -> {abc}. {ABC}	# Hiányzó szóköz?
@@ -87,45 +87,45 @@ E ( |$) # space or end of sentence
 (^|\b|{punct}|[.]) {2,3}(\b|$) <- option("spaces") -> "\1 " # Felesleges szóköz.
 # dupla  szóköz.   Itt három. -> dupla szóköz. Itt három.
 
-(^|\b|{punct}|[.]) {4,}(\b|$) <- option("spaces2") -> "\1 \n\1	" # Szóközök cseréje egy szóközre vagy tabulátorra:
+(^|\b|{punct}|[.]) {4,}(\b|$) <- option("spaces2") -> "\1 |\1	" # Szóközök cseréje egy szóközre vagy tabulátorra:
 
-(?i)(\d+)(x| x )(\d+(-\w+)?) -> \1×\3\n\1 · \3 # Szorzásjel. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Az_írásjelek#275.
+(?i)(\d+)(x| x )(\d+(-\w+)?) -> \1×\3|\1 · \3 # Szorzásjel. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Az_írásjelek#275.
 # 5 x 6 -> 5 × 6
 # 800x600-as -> 800×600-as
 
 a {abc}+
 b {abc}*
-(?i){a}['´]{b} <- option("apost") -> {a}’{b}	#  Valódi aposztróf. \n http://hu.wikipedia.org/wiki/Aposztróf
+(?i){a}['´]{b} <- option("apost") -> {a}’{b}	#  Valódi aposztróf. | http://hu.wikipedia.org/wiki/Aposztróf
 # biz' isten -> biz’ isten
 
 # ’79-ben
 
-['´](\d\d(-\w+)?) <- option("apost") -> ’\1	#  Valódi aposztróf. \n http://hu.wikipedia.org/wiki/Aposztróf
+['´](\d\d(-\w+)?) <- option("apost") -> ’\1	#  Valódi aposztróf. | http://hu.wikipedia.org/wiki/Aposztróf
 
 [)] <- option("par") and not "(" in TEXT -> # Felesleges zárójel?
 
 ######################## idézés ######################
 
-(?i)[\"“”‟„]({abc}[^\"“”‟„]*)[\"“‟] <- option("quot") -> „\1” # Idézőjelek. \n http://hu.wikipedia.org/wiki/Idézőjel
-(?i)[\"“”‟]({abc}[^\"“”‟„]*)[\"“”‟] <- option("quot") -> „\1” # Idézőjelek. \n http://hu.wikipedia.org/wiki/Idézőjel
+(?i)[\"“”‟„]({abc}[^\"“”‟„]*)[\"“‟] <- option("quot") -> „\1” # Idézőjelek. | http://hu.wikipedia.org/wiki/Idézőjel
+(?i)[\"“”‟]({abc}[^\"“”‟„]*)[\"“”‟] <- option("quot") -> „\1” # Idézőjelek. | http://hu.wikipedia.org/wiki/Idézőjel
 # A "kicsi" macska. -> A „kicsi” macska.
 
 # ASCII idézőjelek cseréje (,,vmi'', >>vmi<<)
 
-(?i),,({abc}[^\"“”‟„><']*)'' -> „\1” # Idézőjelek. \n http://hu.wikipedia.org/wiki/Idézőjel
-(?i)>>({abc}[^\"“”‟„><']*)<< -> »\1« # Idézőjelek. \n http://hu.wikipedia.org/wiki/Idézőjel
+(?i),,({abc}[^\"“”‟„><']*)'' -> „\1” # Idézőjelek. | http://hu.wikipedia.org/wiki/Idézőjel
+(?i)>>({abc}[^\"“”‟„><']*)<< -> »\1« # Idézőjelek. | http://hu.wikipedia.org/wiki/Idézőjel
 
 # angolszász idézőjelek cseréje
 
-(?i)‘+({abc}[^\"“”‟„’]*)’+ -> „\1”\n»\1« # Idézőjelek. \n http://hu.wikipedia.org/wiki/Idézőjel
+(?i)‘+({abc}[^\"“”‟„’]*)’+ -> „\1”|»\1« # Idézőjelek. | http://hu.wikipedia.org/wiki/Idézőjel
 
 [Word]
 
-"([(„»]) +" -> \1		# Szóköz nélkül tapadó írásjel. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Az_írásjelek#239.
+"([(„»]) +" -> \1		# Szóköz nélkül tapadó írásjel. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Az_írásjelek#239.
 
-" +([«])" -> \1		# Szóköz nélkül tapadó írásjel. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Az_írásjelek#239.
+" +([«])" -> \1		# Szóköz nélkül tapadó írásjel. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Az_írásjelek#239.
 
-(?i)«({abc}[^\"“”‟„’]*)» -> »\1« 	# Felcserélt belső idézőjelek. \n http://hu.wikipedia.org/wiki/Idézőjel
+(?i)«({abc}[^\"“”‟„’]*)» -> »\1« 	# Felcserélt belső idézőjelek. | http://hu.wikipedia.org/wiki/Idézőjel
 
 ############### pénz #################################
 
@@ -178,30 +178,31 @@ dn \d{3}(,\w+)?[%‰‱°]?(-\w+)? # 3 számjegy, toldalékkal is
 
 
 ([-−]?\d[\d,]*)[  ]([%‰‱°](-\w*)?)
-	-> \1\2 # Szóköz nélkül tapadó írásjel. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Az_írásjelek#275.
+	-> \1\2 # Szóköz nélkül tapadó írásjel. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Az_írásjelek#275.
 ([-−]?\d\d*)[.](\d\d*)([%‰‱°](-\w*)?) <- option("comma")
-	-> \1,\2\3		# Tizedesvessző a helyes írásjel. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#291.
+	-> \1,\2\3		# Tizedesvessző a helyes írásjel. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#291.
 (\d\d*)[.](\d)
 	# kivéve, ha tulajdonnév előzi meg (pl. Firefox 3.5
 	<- option("comma") and (not word(-1) or not re.match("[A-Z]", word(-1)))
-	-> \1,\2\n\1.\2.	# Tizedestört (AkH. 291.) vagy sorszám?
+	-> \1,\2|\1.\2.	# Tizedestört (AkH. 291.) vagy sorszám?
 ((\d\d*[.]){2}\d)
 	# kivéve, ha tulajdonnév előzi meg (pl. Hunspell 1.2.8
 	<- option("comma") and not word(-1) or not re.match("[A-Z]", word(-1))
 	-> \1.	# A sorszámot pont követi.
 (\d\d\d+)[.](\d\d) <- option("comma")
-	-> \1,\2\n\1.\2.	# Tizedestört (AkH. 291.) vagy sorszám?
+	-> \1,\2|\1.\2.	# Tizedestört (AkH. 291.) vagy sorszám?
 # 25.30˚, de 10.20-kor -> 25,30˚, de 10.20-kor
-# 1.5 -> 1,5\n1.5.
-# 123.5 -> 123,5\n123.5.
+# 1.5 -> 1,5|1.5.
+# 123.5 -> 123,5|123.5.
 
 # mínuszjel
 
 -(\d+([  ]\d\d\d){0,3}(,\d+)?[%‰‱°]?(-\w+)?) <- option("minus") -> −\1 # Mínuszjel kiskötőjel helyett.
 
--(\d+([  ]\d\d\d){0,3})[.](\d+[%‰‱°]?(-\w+)?) <- option("minus") -> −\1,\2 # Mínuszjel és tizedesvessző. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#291.
+-(\d+([  ]\d\d\d){0,3})[.](\d+[%‰‱°]?(-\w+)?) <- option("minus") -> −\1,\2 # Mínuszjel és tizedesvessző. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#291.
 
-(−\d+([  ]\d\d\d){0,3})[.](\d+[%‰‱°]?(-\w+)?) -> \1,\2 # Tizedesvessző pont helyett. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#291.
+(−\d+([  ]\d\d\d){0,3})[.](\d+[%‰‱°]?(-\w+)?) -> \1,\2 # Tizedesvessző pont helyett. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#291.
+
 
 ######################## fok #########################
 
@@ -214,6 +215,12 @@ dn \d{3}(,\w+)?[%‰‱°]?(-\w+)? # 3 számjegy, toldalékkal is
 # 12 °C-kal
 
 ([-−]?\d+(?:,\d+)?)((°C|°F|℃|℉)(-\w+)?) -> \1 \2 # Nem törő szóközzel elválasztott mértékegység.
+
+######################## %-al ########################
+
+# 10%-al, 10-20%-al
+
+(([-−]?\d+(,\d+)?[-–])?[-−]?\d+(,\d+)?)%-al -> \1%-kal # Hiányos toldalék.
 
 ######################## dátumok #####################
 
@@ -235,21 +242,21 @@ notmonthcomp [-–]{month}{notmonthposs}
 
 year2    \d\d
 
-{year} {month}{notmonthposs} -> {year}. {month}{notmonthposs}	# Az évszám után itt pontot írunk. \n \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#294.
-{year} {month}{notmonthcomp} -> {year}. {month}{notmonthcomp}	# Az évszám után itt pontot írunk. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#294.
-{year} évi -> {year}. évi	# Az évszám után itt pontot írunk. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#294.
-{year}[-–]{year2} évi -> {year}–{year2}. évi	# Az évszám után itt pontot írunk. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#294.
+{year} {month}{notmonthposs} -> {year}. {month}{notmonthposs}	# Az évszám után itt pontot írunk. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#294.
+{year} {month}{notmonthcomp} -> {year}. {month}{notmonthcomp}	# Az évszám után itt pontot írunk. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#294.
+{year} évi -> {year}. évi	# Az évszám után itt pontot írunk. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#294.
+{year}[-–]{year2} évi -> {year}–{year2}. évi	# Az évszám után itt pontot írunk. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#294.
 # 2005 január -> 2005. január
 # 1999 augusztusban -> 1999. augusztusban
 # 2009-10 évi -> 2009–10. évi
 
 nu folyamán|előtti?|utáni?|közötti?|nyara|nyará\w+|tele|telé\w+|tavasza|tavaszá\w+|ősze|őszé\w+
-\b{year}[.] {nu}\b -> {year} \g<nu> # Az évszám után itt nem írunk pontot. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#295.
+\b{year}[.] {nu}\b -> {year} \g<nu> # Az évszám után itt nem írunk pontot. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#295.
 # 1974. előtti -> 1974 előtti
 
 monthposs ([jaáe]|é\w)\w*
 
-\b{year}[.] {month}{monthposs}\b -> {year} {month}{monthposs} # Az évszám után itt nem írunk pontot. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#295.
+\b{year}[.] {month}{monthposs}\b -> {year} {month}{monthposs} # Az évszám után itt nem írunk pontot. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#295.
 # 1999. augusztusában -> 1999 augusztusában
 
 [char]
@@ -259,31 +266,31 @@ text [^\s][^\s]*
 w \w*
 djel [ ,;:?!]
 
-(?i)\b{month} {day}[.]-{w} -> {month} {day}-{w} # A nap után itt nem írunk pontot. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#296.
-(?i)\b{month} {day}{djel} -> {month} {day}.{djel} # Ha dátum, hiányzik a pont. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#296.
+(?i)\b{month} {day}[.]-{w} -> {month} {day}-{w} # A nap után itt nem írunk pontot. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#296.
+(?i)\b{month} {day}{djel} -> {month} {day}.{djel} # Ha dátum, hiányzik a pont. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#296.
 # március 15.-én -> március 15-én
 # március 15 volt. -> március 15. volt.
 
 
 nu óta|előtti?|utáni?|közötti?
-(?i)\b{month} {day} {nu} -> {month} {day}. {nu} # A nap után itt pontot írunk. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#297.
+(?i)\b{month} {day} {nu} -> {month} {day}. {nu} # A nap után itt pontot írunk. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#297.
 # március 15 óta -> március 15. óta
-(?i)\b{month} {day}[.] és {day} {nu} -> {month} {day}. és {day}. {nu} # A nap után itt pontot írunk. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#297.
-(?i)\b{month} {day} és {day}[.]? {nu} -> {month} {day}. és {day}. {nu} # A nap után itt pontot írunk. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#297.
+(?i)\b{month} {day}[.] és {day} {nu} -> {month} {day}. és {day}. {nu} # A nap után itt pontot írunk. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#297.
+(?i)\b{month} {day} és {day}[.]? {nu} -> {month} {day}. és {day}. {nu} # A nap után itt pontot írunk. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#297.
 # március 15. és 27 között -> március 15. és 27. között
 # március 15 és 27. között -> március 15. és 27. között
 # március 15 és 27 között -> március 15. és 27. között
-(?i)\b{month} {day}[-–]{day} {nu} -> {month} {day}–{day}. {nu} # A nap után itt pontot írunk. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#297.
-(?i)\b{month} {day}-{day}. {nu} -> {month} {day}–{day}. {nu} # A napok közé nagykötőjelet írunk. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#297.
+(?i)\b{month} {day}[-–]{day} {nu} -> {month} {day}–{day}. {nu} # A nap után itt pontot írunk. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#297.
+(?i)\b{month} {day}-{day}. {nu} -> {month} {day}–{day}. {nu} # A napok közé nagykötőjelet írunk. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#297.
 # március 15-22. között -> március 15–22. között
 # március 15-22 között -> március 15–22. között
 
-\b{year}[.]{monthnum}[.]{day}{optdot}{text} -> {year}. {monthnum}. {day}{optdot}{text} # Szóköz a dátumban. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#293.
+\b{year}[.]{monthnum}[.]{day}{optdot}{text} -> {year}. {monthnum}. {day}{optdot}{text} # Szóköz a dátumban. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#293.
 # 2009.05.12. -> 2009. 05. 12.
 
 # 1. = elseje
 e  e|i|ei\w*|é\w+
-(?i){month} 1[.]?-{e}\b -> {month} 1-j{e} # Elseje számjegyes írása. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#296.
+(?i){month} 1[.]?-{e}\b -> {month} 1-j{e} # Elseje számjegyes írása. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#296.
 # május 1-i -> május 1-ji
 # május 1-ei -> május 1-jei
 # május 1-én -> május 1-jén
@@ -294,12 +301,12 @@ e  e|i|ei\w*|é\w+
 
 #W \w+		# word
 # tagmondatok és mondatrészek megkülönböztetéséhez mondatelemzés kell
-#([(]|\w+: )(({W}, )+{W};( {W}[,;])* {W})[,]? stb. -> \1\2; stb.	# Stb. előtt itt pontosvessző van. (AkH. 247/b) \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Az_írásjelek#247.
-#([(]|\w+: )(({W}, )*{W}), stb. -> \1\2 stb.	# Stb. előtt itt nincs vessző. (AkH. 247/d) \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Az_írásjelek#247.
-\bstb[.], stb[.] -> stb. stb.\nstb.; stb.	# Két stb. közé nem teszünk vesszőt.
+#([(]|\w+: )(({W}, )+{W};( {W}[,;])* {W})[,]? stb. -> \1\2; stb.	# Stb. előtt itt pontosvessző van. (AkH. 247/b) | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Az_írásjelek#247.
+#([(]|\w+: )(({W}, )*{W}), stb. -> \1\2 stb.	# Stb. előtt itt nincs vessző. (AkH. 247/d) | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Az_írásjelek#247.
+\bstb[.], stb[.] -> stb. stb.|stb.; stb.	# Két stb. közé nem teszünk vesszőt.
 ## Madarak: rigó, cinke, veréb, stb. -> Madarak: rigó, cinke, veréb stb.
 ## Állatok (rigó, cinke; nyúl, pocok stb.) -> Állatok (rigó, cinke; nyúl, pocok; stb.)
-# stb., stb. -> stb. stb.\nstb.; stb.
+# stb., stb. -> stb. stb.|stb.; stb.
 
 #################### rövidítések #####################
 
@@ -325,15 +332,15 @@ year2 (1\d\d[1-9]|1\d[1-9]\d|20\d[1-9]|20[1-9]\d)
 # 1998-2000 -> 1998–2000
 # 1998-99 -> 1998–99
 
-([A-ZÖÜÓŰŐÚÉÁÍ]\w*)-(\d+(-\w+)?) -> \1–\2 # Típusnév és -szám közé nagykötőjelet teszünk. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Az_írásjelek#263.
+([A-ZÖÜÓŰŐÚÉÁÍ]\w*)-(\d+(-\w+)?) -> \1–\2 # Típusnév és -szám közé nagykötőjelet teszünk. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Az_írásjelek#263.
 # UTF-8 -> UTF–8
 # Apolló-13-nak -> Apolló–13-nak
 
-pp[.] (\d+)-(\d+)[.] -> pp. \1–\2.		# Oldalszámok közé nagykötőjelet teszünk. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Az_írásjelek#263.
+pp[.] (\d+)-(\d+)[.] -> pp. \1–\2.		# Oldalszámok közé nagykötőjelet teszünk. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Az_írásjelek#263.
 (\d+)-(\d+)[.] (o[.]|oldal\w*) -> \1–\2. \3	# Oldalszám
 # 10-12. oldalon -> 10–12. oldalon
 
-" (u[.]|utca|út|tér) (\d\d*)-(\d\d*)[.]" -> " \1 \2–\3."  # Nagykötőjel a házszámban. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#298.
+" (u[.]|utca|út|tér) (\d\d*)-(\d\d*)[.]" -> " \1 \2–\3."  # Nagykötőjel a házszámban. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#298.
 # Széna tér 123-125. -> Széna tér 123–125.
 
 
@@ -350,13 +357,13 @@ ne játs(zunk|zatok|zanak) -> ne játss\1  # Helyesírási hiba.
 [aá] la carte -> à la carte			# Helyesen à la carte.
 (állta(ss\w*|t\w*)) <- not morph(\1, "pa:") -> álta\2 # Áltat, hiteget értelemben egy l-lel írjuk.
 önáll(tat[óá]\w*) -> önál\1 			# Helyesen egy l-lel.
-belsőséges -> bensőséges\nbelsőségből készült	# Szótévesztés vagy szójáték?
+belsőséges -> bensőséges|belsőségből készült	# Szótévesztés vagy szójáték?
 dehogy is -> dehogyis				# Egybeírás „egyáltalán nem” jelentésben.
 dehogy nem -> dehogynem				# Egybeírás „de igen” jelentésben.
 dehogyis nem -> dehogyisnem			# Egybeírás „de igen” jelentésben.
 eképpen -> ekképpen				# Helyesen két k-val.
 egyel (több\w*|kevesebb\w*) -> eggyel \1	# 1-gyel értelemben hosszú gy-vel írjuk.
-egyenlőre -> egyelőre\negyformára\ndöntetlenre\negyenlő számúra\nazonos méretűre # Helyesírási (egyelőre) vagy stílushiba (egyformára).
+egyenlőre -> egyelőre|egyformára|döntetlenre|egyenlő számúra|azonos méretűre # Helyesírási (egyelőre) vagy stílushiba (egyformára).
 egyi(vású\w*) -> egyí\1				# Hosszú í-vel helyes.
 egytől-egyig -> egytől egyig			# Kötőjel nélkül írjuk.
 előre hátra -> előre-hátra			# Kötőjellel írjuk.
@@ -373,16 +380,16 @@ hátba (támadás\w*) -> hátba\1			# Egybeírás.
 időről-időre -> időről időre			# Különírás.
 jing és jang -> jin és jang			# Helyesen jin és jang.
 kőr((öz|út|ut)\w*) <- morph(\0, ur"st:kőr\b") -> kör\1 # Rövid ö-vel a kör összetételeiben.
-légyszíves -> légy szíves\nlegyél szíves	# Legyél szíves értelemben különírjuk.
+légyszíves -> légy szíves|legyél szíves	# Legyél szíves értelemben különírjuk.
 legalább is -> legalábbis			# Egybeírás.
 Lichten(stein\w*) -> Liechten\1			# Helyesen Liechtenstein.
 mellékhely(ség\w*) -> mellékhelyi\1		# Helyiség, mint szoba.
 mú(landó\w*) -> mu\1				# Helyesen rövid u-val.
 nembiztos -> nem biztos				# Különírás.
-originált -> originál\neredeti\nbontatlan	# Ha nem tárgyesetben van, „t” nélkül írjuk.
+originált -> originál|eredeti|bontatlan	# Ha nem tárgyesetben van, „t” nélkül írjuk.
 (szén|kén|mangán|nitrogén|ón|titán|tórium)(dioxid\w*) -> \1-\2 # Kötőjeles alak.
 (szén|kén|nitrogén)(monoxid\w*) -> \1-\2	# Kötőjeles alak.
-továbbittunk -> továbbítunk\ntovább ittunk	# Helyesírási hiba.
+továbbittunk -> továbbítunk|tovább ittunk	# Helyesírási hiba.
 
 [char]
 
@@ -397,14 +404,14 @@ a [aA]
 aword [aáeéiíoóöőuúüűAÁEÉIÍOÓÖŐUÚÜŰ]\w*
 ^[aA] {aword} <- not re.match(r"(?i)i(ii?|[vx])$|Unicode$|Unix\w*$", {aword}) and spell({aword}) -> az {aword} # Hibás névelő?
 (?<!(\d[.]|az) )\b{a} {aword} <- word(-1) and not re.match(r"(?i)i(ii?|[vx])$|Unicode$|Unix\w*$", {aword}) and
-	spell({aword}) -> {a}z {aword}\n{aword} # Hibás vagy felesleges névelő?
-# A 4. a osztály a órán az A alaphangot -> A 4. a osztály az órán\nórán az A alaphangot
+	spell({aword}) -> {a}z {aword}|{aword} # Hibás vagy felesleges névelő?
+# A 4. a osztály a órán az A alaphangot -> A 4. a osztály az órán|órán az A alaphangot
 
 # névelők és számok
 
 [Word]
 
-a <- word(1) and re.match(r"(1|5\d*|[15]\d\d\d)[.]?$", word(1)) -> az # Hibás névelő.
+a(?! 1,5\b) <- word(1) and re.match(r"(1|5\d*|[15]\d\d\d)[.]?$", word(1)) -> az # Hibás névelő.
 
 az <- not option("grammar") and word(2) and
 	re.match(ur"(alfejezet|alszakasz|ábr|bekezdés|diagram|fejezet|kép|lap|oldal|paragrafus|szakasz|táblázat)\w*", word(2)) and
@@ -457,7 +464,7 @@ hw [a-zA-ZöüóűőúéáíÖÜÓŰŐÚÉÁÍ][a-zA-ZöüóűőúéáíÖÜÓŰ
 [word]
 
 event (Advent|Húsvét|Karácsony|Mindenszentek|Pünkösd|(Anyák|Apák|Halottak|Nők) [Nn]apj){abc}*
-{event} <- word(-1) and word(1) == word(1).lower() -> = {event}.lower() # Kisbetűs kifejezés, ha nem cím. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/A_kis_és_a_nagy_kezdőbetűk#145.
+{event} <- word(-1) and word(1) == word(1).lower() -> = {event}.lower() # Kisbetűs kifejezés, ha nem cím. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/A_kis_és_a_nagy_kezdőbetűk#145.
 # Nemsokára Anyák napja. -> Nemsokára anyák napja.
 
 [char]
@@ -553,48 +560,48 @@ w   {Abc}+
 
 # Észak-Amerikai Észak-amerikai helyett
 
-{Dir}-{cap} <- morph({cap}, r"po:noun_prs.*is:i_PLACE", False) -> = {Dir} + "-" + {cap}.lower() # Kisbetűvel írt földrajzi név. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/A_tulajdonnevek_írása#179.
+{Dir}-{cap} <- morph({cap}, r"po:noun_prs.*is:i_PLACE", False) -> = {Dir} + "-" + {cap}.lower() # Kisbetűvel írt földrajzi név. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/A_tulajdonnevek_írása#179.
 
 # észak-Amerika Észak-Amerika helyett
 
 {dir}-{cap} <- morph({cap}, r"po:noun_prs", False) and not morph({cap},"is:i_PLACE", False) ->
-	= {dir}.capitalize() + "-" + {cap} # Nagybetűvel írt földrajzi név. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/A_tulajdonnevek_írása#179.
+	= {dir}.capitalize() + "-" + {cap} # Nagybetűvel írt földrajzi név. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/A_tulajdonnevek_írása#179.
 
 # Észak-amerikai csak akkor nagybetűs, ha mondatkezdő és nem nagybetűs az utána jövő szó
 
 {Dir}-{sc} <- word(-1) and word(1) and not word(1) == word(1).capitalize() and
-	morph({sc}, r"po:noun_prs.*is:i_PLACE", False) -> = {Dir}.lower() + "-" + {sc} # Kisbetűvel írt földrajzi név. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/A_tulajdonnevek_írása#179.
+	morph({sc}, r"po:noun_prs.*is:i_PLACE", False) -> = {Dir}.lower() + "-" + {sc} # Kisbetűvel írt földrajzi név. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/A_tulajdonnevek_írása#179.
 
 # hiányzó kötőjel
 
-{Dir} {w} <- morph({w}, r"po:noun_prs") -> {Dir}-{w} # Kötőjellel írt földrajzi név. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/A_tulajdonnevek_írása#179.
+{Dir} {w} <- morph({w}, r"po:noun_prs") -> {Dir}-{w} # Kötőjellel írt földrajzi név. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/A_tulajdonnevek_írása#179.
 
 # köznevek
 
 prop Tenger|Óceán|Sziget|Félsziget|Középhegység
 
-{cap}-{prop} -> = {cap} + "-" + {prop}.lower() # Kisbetűs írt köznévi tag. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/A_tulajdonnevek_írása#176. 
+{cap}-{prop} -> = {cap} + "-" + {prop}.lower() # Kisbetűs írt köznévi tag. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/A_tulajdonnevek_írása#176. 
 
 # AkH. 182.
 
-(Árpád|Erzsébet|Hajógyári|Margit|Megyeri|Petőfi|Rákóczi|Szabadság)-(híd\w*) -> \1 \2 # Különírás. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/A_tulajdonnevek_írása#182.
-(Szabadság)(híd\w*) -> \1 \2 # Különírás. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/A_tulajdonnevek_írása#182.
-(Szabadság ?)(szobo?r\w*) -> \1-\2 # Kötőjeles összetétel. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/A különírás és az egybeírás#140.
+(Árpád|Erzsébet|Hajógyári|Margit|Megyeri|Petőfi|Rákóczi|Szabadság)-(híd\w*) -> \1 \2 # Különírás. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/A_tulajdonnevek_írása#182.
+(Szabadság)(híd\w*) -> \1 \2 # Különírás. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/A_tulajdonnevek_írása#182.
+(Szabadság ?)(szobo?r\w*) -> \1-\2 # Kötőjeles összetétel. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/A különírás és az egybeírás#140.
 
 # AkH. 183.
 
-(Fertő)-(([tT]ó|[tT]av)\w*) -> = \1 + " " + \2.lower() # Kötőjel nélkül írt földrajzi név. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/A_tulajdonnevek_írása#183.
-(Góbi|Kalahári|Szahara)-([sS]ivatag\w*) -> = \1 + " " + \2.lower() # Kötőjel nélkül írt földrajzi név. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/A_tulajdonnevek_írása#183.
-(Börzsöny|Bükk|Mátra|Mecsek|Pilis|Zemplén|Vértes)-([Hh]egység\w*) -> = \1 + " " + \2.lower() # Kötőjel nélkül írt földrajzi név. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/A_tulajdonnevek_írása#183.
-(Duna)-(folyam\w*) -> = \1 + " " + \2.lower() # Kötőjel nélkül írt földrajzi név. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/A_tulajdonnevek_írása#183.
-(Bodrog|Duna|Dráva|Ipoly|Körös|Maros|Rába|Sajó|Tisza|Zala)-(([Ff]olyó|[Ff]olyam)\w*) -> = \1 + " " + \2.lower() # Kötőjel nélkül írt földrajzi név. \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/A_tulajdonnevek_írása#183.
+(Fertő)-(([tT]ó|[tT]av)\w*) -> = \1 + " " + \2.lower() # Kötőjel nélkül írt földrajzi név. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/A_tulajdonnevek_írása#183.
+(Góbi|Kalahári|Szahara)-([sS]ivatag\w*) -> = \1 + " " + \2.lower() # Kötőjel nélkül írt földrajzi név. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/A_tulajdonnevek_írása#183.
+(Börzsöny|Bükk|Mátra|Mecsek|Pilis|Zemplén|Vértes)-([Hh]egység\w*) -> = \1 + " " + \2.lower() # Kötőjel nélkül írt földrajzi név. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/A_tulajdonnevek_írása#183.
+(Duna)-(folyam\w*) -> = \1 + " " + \2.lower() # Kötőjel nélkül írt földrajzi név. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/A_tulajdonnevek_írása#183.
+(Bodrog|Duna|Dráva|Ipoly|Körös|Maros|Rába|Sajó|Tisza|Zala)-(([Ff]olyó|[Ff]olyam)\w*) -> = \1 + " " + \2.lower() # Kötőjel nélkül írt földrajzi név. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/A_tulajdonnevek_írása#183.
 
 Budapest (Liszt Ferenc )([Nn]emzetközi [Rr]epülőt[eé])(r\w*) -> =
 	\1 + \2.lower() + \3 +
-	"\nferihegyi " + \1 + \2.lower() + \3 + "\n" +
+	"|ferihegyi " + \1 + \2.lower() + \3 + "|" +
 	\3.replace("r", "Ferihegy", 1).replace("gyrel", "ggyel").replace(u"gyré", u"ggyé") +
-	"\nBudapest, " + \1 + \2.lower() + \3
-	# A köznévi tag kisbetűs, a címet vesszővel tagoljuk. (AkH. 190., 247.; FNB 74.) \n http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Az_írásjelek#247.
+	"|Budapest, " + \1 + \2.lower() + \3
+	# A köznévi tag kisbetűs, a címet vesszővel tagoljuk. (AkH. 190., 247.; FNB 74.) | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Az_írásjelek#247.
 
 ########################## vesszők ##########################
 
@@ -708,14 +715,14 @@ több, mint <-
 	(re.match(r"\d+$", word(1)) and morph(word(2), r"po:adj_num|st:ezer\b") and morph(word(3), r"po:noun\b.*is:")) or
 	# több mint 75%-a
 	re.match(r"\d+%-", word(1)) -> több mint # Ha nem összehasonlítás,
-	hanem a mondanivaló erősítése, itt nem használunk vesszőt. \n
+	hanem a mondanivaló erősítése, itt nem használunk vesszőt. |
 	http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Az_írásjelek#243.
 
 ############ avagy, illetve, ill., valamint ##########
 
 (\w+)( avagy)	-> \1,\2 		# Az avagy kötőszó elé vesszőt teszünk.
 (\w+)( illetve)	-> \1,\2		# Az illetve kötőszó elé vesszőt teszünk.
-(\w+)( ill[.])	-> \1,\2\n\1, illetve	# Az illetve kötőszó elé vesszőt teszünk.
+(\w+)( ill[.])	-> \1,\2|\1, illetve	# Az illetve kötőszó elé vesszőt teszünk.
 (\w+)( valamint) -> \1,\2 		# A valamint kötőszó elé vesszőt teszünk.
 
 ############ mellet -> mellett ##################
@@ -762,12 +769,12 @@ W \w{4,}
 ############### Stílus #################################
 
 [Word]
-#asszem -> azt hiszem\nazt hiszem, hogy # Helyesírási hiba.
+#asszem -> azt hiszem|azt hiszem, hogy # Helyesírási hiba.
 #h <- option("style") -> hogy # Hibás rövidítés?
 #szar\w* <- option("style") and morph(\0, r"st:szar\b") -> rossz # Stílushiba.
 
-médiák <- option("style") -> médiák\nmédia\nhírek\nlapok\nhírcsatornák # Vitatott stílusértékű alak.
-unszimpatikus <- option("style") -> unszimpatikus\nellenszenves\nantipatikus # Vitatott stílusértékű alak.
+médiák <- option("style") -> médiák|média|hírek|lapok|hírcsatornák # Vitatott stílusértékű alak.
+unszimpatikus <- option("style") -> unszimpatikus|ellenszenves|antipatikus # Vitatott stílusértékű alak.
 
 # ezresek számjegyekkel
 
@@ -796,7 +803,7 @@ W [-\w]{3,}
 
 {W} \1 <- option("dup0") and (not word(-1) or
 	not word(-1).lower() in ["a", "az", "minden"]) and word(1) != u"hátán" and word(1) != u"hátán." and
-	not morph(word(1), "po:post", False) -> {W}\n{W}-\1 # Szóismétlés vagy hiányzó kötőjel?
+	not morph(word(1), "po:post", False) -> {W}|{W}-\1 # Szóismétlés vagy hiányzó kötőjel?
 
 {W}(?: [-–\w„”]+)* \1 <- option("dup") -> {W} # Túlzott szóismétlés?
 
@@ -863,7 +870,7 @@ kedvel <- word(-1).lower() == u"jó" or word(-1).lower() == "rossz" -> kedvvel #
 ([-−]?\d+(?:,\d+)?) (℉(-\w+)?) <- option("SI") -> = measurement(\1, "F", "C", " °C" + \2[1:]) # Váltás SI mértékegységre
 
 ([-−]?\d(?:,\d+)?) (láb\w*) <- option("SI") and stem(\2) == [u"láb"] -> = 
-	measurement(\1, "ft", "cm", " " + generate(u"centiméter", \2)[0]) + "\n" +
+	measurement(\1, "ft", "cm", " " + generate(u"centiméter", \2)[0]) + "|" +
 	measurement(\1, "ft", "m", " " + generate(u"méter", \2)[0]) # Váltás SI mértékegységre
 
 ([-−]?\d\d+(?:,\d+)?) (láb\w*) <- option("SI") and stem(\2) == [u"láb"] -> = measurement(\1, "ft", "m",
@@ -885,19 +892,19 @@ kedvel <- word(-1).lower() == u"jó" or word(-1).lower() == "rossz" -> kedvvel #
 	" " + generate("liter", \2)[0]) # Váltás SI mértékegységre
 
 ([-−]?\d+(?:,\d+)?) (pint\w*) <- option("SI") -> = 
-	measurement(\1, "uk_pt", "dl", " " + generate("deciliter", \2)[0]) + "\n" +
+	measurement(\1, "uk_pt", "dl", " " + generate("deciliter", \2)[0]) + "|" +
 	measurement(\1, "us_pt", "dl", " " + generate("deciliter", \2)[0]) # Váltás SI mértékegységre (angol és amerikai pint)
 
 # elválasztás
 
-adatút <- option("hyphen") -> ada­tút\nadat­út # Elválasztás:
-felett(em|ed|e|ünk|ük) <- option("hyphen") -> fe­let­t\1\nfel­et­t\1 # Elválasztás:
-felettetek <- option("hyphen") -> fe­let­te­tek\nfel­et­te­tek # Elválasztás:
-fölül <- option("hyphen") -> fö­lül\nföl­ül # Elválasztás:
-gépelem <- option("hyphen") -> gé­pe­lem\ngép­elem # Elválasztás:
-karóra <- option("hyphen") -> kar­óra\nka­ró­ra # Elválasztás:
-megás <- option("hyphen") -> me­gás\nmeg­ás # Elválasztás:
-megint <- option("hyphen") -> me­gint\nmeg­int # Elválasztás:
+adatút <- option("hyphen") -> ada­tút|adat­út # Elválasztás:
+felett(em|ed|e|ünk|ük) <- option("hyphen") -> fe­let­t\1|fel­et­t\1 # Elválasztás:
+felettetek <- option("hyphen") -> fe­let­te­tek|fel­et­te­tek # Elválasztás:
+fölül <- option("hyphen") -> fö­lül|föl­ül # Elválasztás:
+gépelem <- option("hyphen") -> gé­pe­lem|gép­elem # Elválasztás:
+karóra <- option("hyphen") -> kar­óra|ka­ró­ra # Elválasztás:
+megás <- option("hyphen") -> me­gás|meg­ás # Elválasztás:
+megint <- option("hyphen") -> me­gint|meg­int # Elválasztás:
 
 [code]
 
@@ -905,4 +912,4 @@ def measurement(mnum, min, mout, mstr):
     m = calc("CONVERT_ADD", (float(mnum.replace(",", ".").replace(u"−", "-")), min, mout))
     a = list(set([str(calc("ROUND", (m, 0)))[:-2], str(calc("ROUND", (m, 1))), str(calc("ROUND", (m, 2))), str(m)])) # remove duplicated rounded items
     a.sort(lambda x, y: len(x) - len(y)) # sort by string length
-    return join(a, mstr + "\n").replace(".", ",").replace("-", u"−") + mstr
+    return join(a, mstr + "|").replace(".", ",").replace("-", u"−") + mstr

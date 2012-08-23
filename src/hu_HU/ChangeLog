@@ -1,3 +1,8 @@
+2012-08-23  László Németh <nemeth@numbertext.org>:
+- „a 1,5” („a másfél”) nem névelőhasználati hiba. Pénzes Dávid hívta fel a
+  figyelmet a problémára.
+- A 10%-al, 10-20%-al hibás alakok javítása, Pénzes Dávid javaslatára.
+
 2012-02-02  László Németh <nemeth@numbertext.org>:
 - rövidebb magyarázat a „több mint” esetén + URL
 - "-szám" alakoknál nem feltételez kötőjeles felsorolást
