@@ -1,3 +1,7 @@
+2012-08-24 László Németh <nemeth@numbertext.org>:
+        - fix URL splitting
+        - update URLs in English rules
+
 2012-08-23 László Németh <nemeth@numbertext.org>:
         - fix fdo#46542 ("an usability" instead of "a usability") reported by Roman Eisele
         - fix fdo#46549 (allow "an habitual", too), reported by jacobwwood at fdo

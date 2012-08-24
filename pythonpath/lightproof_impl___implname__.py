@@ -172,8 +172,8 @@ def proofread( nDocId, TEXT, LOCALE, nStartOfSentencePos, nSuggestedSentenceEndP
                             comment = eval(comment[1:])
                         else:
                             comment = m.expand(comment)
-                        aErr.aShortComment      = comment.replace('|', '\\n').split("\\n")[0].strip()
-                        aErr.aFullComment       = comment.replace('|', '\\n').split("\\n")[-1].strip()
+                        aErr.aShortComment      = comment.replace('|', '\n').replace('\\n', '\n').split("\n")[0].strip()
+                        aErr.aFullComment       = comment.replace('|', '\n').replace('\\n', '\n').split("\n")[-1].strip()
                         if "://" in aErr.aFullComment:
                             p = PropertyValue()
                             p.Name = "FullCommentURL"
