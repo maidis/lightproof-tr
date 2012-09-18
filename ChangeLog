@@ -1,3 +1,6 @@
+2012-09-18 László Németh <nemeth@numbertext.org>:
+        - fix suggest() splitting
+
 2012-08-24 László Németh <nemeth@numbertext.org>:
         - fix URL splitting
         - update URLs in English rules
