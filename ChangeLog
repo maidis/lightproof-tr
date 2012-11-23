@@ -1,3 +1,7 @@
+2012-11-23 László Németh <nemeth@numbertext.org>:
+        - fix strange false positives resulted by a synchronization problem (missing
+          alternatives with unloaded dictionary), the problem reported by Olivier Ronez
+
 2012-09-18 László Németh <nemeth@numbertext.org>:
         - fix suggest() splitting
 
