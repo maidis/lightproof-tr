@@ -1,6 +1,6 @@
 # -*- encoding: UTF-8 -*-
+from __future__ import unicode_literals
 import uno, re, sys, os, traceback
-from string import join
 from com.sun.star.text.TextMarkupType import PROOFREADING
 from com.sun.star.beans import PropertyValue
 
@@ -121,7 +121,7 @@ def suggest(rLoc, word):
         if not x:
             return word
         t = x.getAlternatives()
-        suggestions[word] = join(t, "|")
+        suggestions[word] = "|".join(t)
     return suggestions[word]
 
 # get the nth word of the input string or None
@@ -218,7 +218,7 @@ def compile_rules(dic):
             i[0] = re.compile(i[0])
         except:
             if 'PYUNO_LOGLEVEL' in os.environ:
-                print("Lightproof: bad regular expression: ", traceback.format_exc())
+                print("Lightproof: bad regular expression: " + str(traceback.format_exc()))
             i[0] = None
 
 def get_rule(loc):

@@ -1,6 +1,13 @@
 # -*- encoding: UTF-8 -*-
+#from __future__ import unicode_literals
 import sys, os, zipfile, traceback, Dialog
-import ConfigParser as cp    # configparser in Python 3
+try:
+    import ConfigParser as cp    # configparser in Python 3
+    uni = lambda i: unicode(i, "UTF-8")
+except:
+    import configparser as cp
+    uni = str
+
 import pythonpath.lightproof_compile___implname__
 from string import Template
 
@@ -10,14 +17,14 @@ def dist(fn, a):
     distname = a['implname'] + "-" + a['version'] + '.oxt'
     z = zipfile.ZipFile(distname, mode='w', compression = zipfile.ZIP_DEFLATED)
     f = open(fn + ".dat",'r')
-    code = pythonpath.lightproof_compile___implname__.c(unicode(f.read(), "UTF-8"), a['lang'])
+    code = pythonpath.lightproof_compile___implname__.c(uni(f.read()), a['lang'])
     a["code"] = code["code"]
     a['data'] = code["rules"]
 
     for i in ["META-INF/manifest.xml", "description.xml", "Linguistic.xcu", "Lightproof.py", \
         "pythonpath/lightproof_handler___implname__.py", "pythonpath/lightproof_impl___implname__.py", \
         "pythonpath/lightproof___implname__.py" ]:
-        z.writestr(i.replace("__implname__", a["implname"]), Template(open(i, "r").read()).safe_substitute(a))
+        z.writestr(i.replace("__implname__", a["implname"]), Template(uni(open(i, "r").read())).safe_substitute(a))
 
     for i in a["extras"].split(","):
         z.writestr(i.strip().replace("../", "").replace("__implname__", a["implname"]), \
@@ -30,8 +37,8 @@ def dist(fn, a):
         z.writestr("pythonpath/lightproof_opts_%s.py"%a["implname"], "")
 
 if len(sys.argv) == 1:
-    print """Synopsis: python make.py config_file
-eg. python make.py src/en/en.cfg"""
+    print ("""Synopsis: python make.py config_file
+eg. python make.py src/en/en.cfg""")
     sys.exit(0)
 
 fArgs = cp.SafeConfigParser()
@@ -40,6 +47,6 @@ for i in sys.argv[1:]:
         fArgs.read(i)
         dist(i[:-4], fArgs._sections['args'])
     except:
-        print traceback.format_exc()
-        print "missing config file or options: ", i
+        print (traceback.format_exc())
+        print ("missing config file or options: " + str(i))
         sys.exit(0)

@@ -1,14 +1,14 @@
 # -*- encoding: UTF-8 -*-
+from __future__ import unicode_literals
 import sys
 import re
-from string import split
 import os
 import codecs
 
-comment = re.compile(ur"[\n#]")
-ids = re.compile(ur"\w+:\s*\*?\w+(,\s*\*?\w+)*")
-langu = re.compile(ur"\[.+=.+\]\s*")
-titl = re.compile(ur"\w+\s*=\s*")
+comment = re.compile(r"[\n#]")
+ids = re.compile(r"\w+:\s*\*?\w+(,\s*\*?\w+)*")
+langu = re.compile(r"\[.+=.+\]\s*")
+titl = re.compile(r"\w+\s*=\s*")
 helptexts = []
 
 xdl_header = """<?xml version="1.0" encoding="UTF-8"?>
@@ -30,17 +30,17 @@ oor:name="%s" oor:package="org.openoffice" xml:lang="en-US">
 </info>
 <templates>
 """
-xcs_leaf_header = ur"""
+xcs_leaf_header = r"""
                 <group oor:name="%s">
                         <info>
                                 <desc>The data for one leaf.</desc>
                         </info>
 """
-xcs_leaf = ur"""<prop oor:name="%s" oor:type="xs:string">
+xcs_leaf = r"""<prop oor:name="%s" oor:type="xs:string">
                                 <value></value>
 </prop>
 """
-xcs_leaf_footer = ur"""                </group>
+xcs_leaf_footer = r"""                </group>
 """
 xcs_component_header = """        </templates>
         <component>
@@ -128,13 +128,13 @@ def create_xdl(pkg, lines, target, lang):
             if state == 0:
                 ok = True
                 if ids.match(i.strip()):
-                    j = split(i.strip(),":")
+                    j = i.strip().split(":")
                     f2 = f2 + xdl_group%(j[0].strip(), k, k2 * 10 + 5, j[0].strip())
-                    for l in split(j[1],","):
+                    for l in j[1].split(","):
                         k = k + 1
                         k2 = k2 + 1
                         l = l.strip()
-                        la = split(l, " ")
+                        la = l.split(" ")
                         l3 = 0
                         itemlen = int(240 / len(la)) 
                         for l2 in la:
@@ -175,7 +175,7 @@ def create_xdl(pkg, lines, target, lang):
                     hlp[0] = hlp[0] + "\n"
                 f2 = f2 + hlp[0]
             elif not ok:
-                print "Syntax error in line %d: %s" %(lin, i)
+                print ("Syntax error in line %d: %s" %(lin, i))
     if "xdl" in f2n:
         f2 = f2 + xdl_footer
     target.writestr(f2n, f2)

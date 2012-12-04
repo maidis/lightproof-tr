@@ -1,6 +1,6 @@
 # -*- encoding: UTF-8 -*-
 # Lightproof grammar checker for LibreOffice and OpenOffice.org
-# 2009-2012 (c) László Németh (nemeth at numbertext org), license: MPL 1.1 / GPLv3+ / LGPLv3+
+# 2009-2012 (c) Laszlo Nemeth (nemeth at numbertext org), license: MPL 1.1 / GPLv3+ / LGPLv3+
 
 import uno, unohelper, os, sys, traceback
 from lightproof_impl_${implname} import locales

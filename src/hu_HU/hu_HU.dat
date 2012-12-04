@@ -30,7 +30,7 @@ hogy-hogy -> hogyhogy # Egybeírás.
 ###################### nagybetűsítés #################
 [code]
 
-abbrev=re.compile(ur"(?i)\b([a-zöüóőúéáűíÖÜÓŐÚÉÁŰÍ]|Áe|Áht|AkH|al|ált|ápr|aug|Avtv|bek|Bp|br|bt|Btk|cca|ci(i|ii|v|x)?|cl(i|ii|iii|iv|ix|v|vi|vii|viii|x|xi|xii|xiii|xiv|xix|xv|xvi|xvii|xviii|xx|xxi|xxii|xxiii|xxiv|xxix|xxv|xxvi|xxvii|xxviii|xxx|xxxi|xxxii|xxxiii|xxxiv|xxxix|xxxv|xxxvi|xxxvii|xxxviii)?|Co|cv(i|ii|iii)?|cx(c|ci|cii|ciii|civ|cix|cv|cvi|cvii|cviii|i|ii|iii|iv|ix|l|li|lii|liii|liv|lix|lv|lvi|lvii|lviii|v|vi|vii|viii|x|xi|xii|xiii|xiv|xix|xv|xvi|xvii|xviii|xx|xxi|xxii|xxiii|xxiv|xxix|xxv|xxvi|xxvii|xxviii)?|cs|Csjt|Cstv|csüt|dec|dk|dny|dr|du|dz(s)?|egy|ék|ÉKsz|em|ény|Épt|érk|etc|Etv|eü|ev|évf|febr|felv|Flt|ford|főisk|fsz(la|t)?|Ftv|gimn|gör|gr|Gt|gy|Gyvt|habil|hg|hiv|Hjt|honv|Hpt|hrsz|hsz|Hszt|htb|id|ifj|ig(h)?|ii(i)?|ill|Inc|ind|isk|iv|ix|izr|jan|jegyz|júl|jún|kat|kb|Kbt|ker|kft|kgy|kht|kir|kiv|Kjt|kk(t)?|koll|korm|köv|kp|Kr|krt|Kt(v)?|ld|li(i|ii|v|x)?|Ltd|ltp|Ltv|luth|lv(i|ii|iii)?|lx(i|ii|iii|iv|ix|v|vi|vii|viii|x|xi|xii|xiii|xiv|xix|xv|xvi|xvii|xviii|xx|xxi|xxii|xxiii|xxiv|xxix|xxv|xxvi|xxvii|xxviii)?|ly|máj|márc|mat|max|mb|megh|megj|MHSz|min|mk|Mo|Mt|NB|nov|ny(á)?|Nyilv|nyrt|okl|okt|olv|op|orsz|ort|ov(h)?|össz|Ötv|özv|Pf|pl(d)?|prof|prot|Ptk|pu|ref|rk(p)?|róm|röv|rt|sgt|spec|stb|sz(ept|erk)?|Szjt|szoc|Szt(v)?|szül|Tbj|tc|tel|tkp|tszf|tvr|ty|ua|ui|úm|ún|uo|Ve|Vhr|vi(i|ii)?|vö|vsz|Vt(v)?|xc(i|ii|iii|iv|ix|v|vi|vii|viii)?|xi(i|ii|v|x)?|xl(i|ii|iii|iv|ix|v|vi|vii|viii)?|xv(i|ii|iii)?|xx(i|ii|iii|iv|ix|v|vi|vii|viii|x|xi|xii|xiii|xiv|xix|xv|xvi|xvii|xviii)?|zrt)\.")
+abbrev=re.compile(r"(?i)\b([a-zöüóőúéáűíÖÜÓŐÚÉÁŰÍ]|Áe|Áht|AkH|al|ált|ápr|aug|Avtv|bek|Bp|br|bt|Btk|cca|ci(i|ii|v|x)?|cl(i|ii|iii|iv|ix|v|vi|vii|viii|x|xi|xii|xiii|xiv|xix|xv|xvi|xvii|xviii|xx|xxi|xxii|xxiii|xxiv|xxix|xxv|xxvi|xxvii|xxviii|xxx|xxxi|xxxii|xxxiii|xxxiv|xxxix|xxxv|xxxvi|xxxvii|xxxviii)?|Co|cv(i|ii|iii)?|cx(c|ci|cii|ciii|civ|cix|cv|cvi|cvii|cviii|i|ii|iii|iv|ix|l|li|lii|liii|liv|lix|lv|lvi|lvii|lviii|v|vi|vii|viii|x|xi|xii|xiii|xiv|xix|xv|xvi|xvii|xviii|xx|xxi|xxii|xxiii|xxiv|xxix|xxv|xxvi|xxvii|xxviii)?|cs|Csjt|Cstv|csüt|dec|dk|dny|dr|du|dz(s)?|egy|ék|ÉKsz|em|ény|Épt|érk|etc|Etv|eü|ev|évf|febr|felv|Flt|ford|főisk|fsz(la|t)?|Ftv|gimn|gör|gr|Gt|gy|Gyvt|habil|hg|hiv|Hjt|honv|Hpt|hrsz|hsz|Hszt|htb|id|ifj|ig(h)?|ii(i)?|ill|Inc|ind|isk|iv|ix|izr|jan|jegyz|júl|jún|kat|kb|Kbt|ker|kft|kgy|kht|kir|kiv|Kjt|kk(t)?|koll|korm|köv|kp|Kr|krt|Kt(v)?|ld|li(i|ii|v|x)?|Ltd|ltp|Ltv|luth|lv(i|ii|iii)?|lx(i|ii|iii|iv|ix|v|vi|vii|viii|x|xi|xii|xiii|xiv|xix|xv|xvi|xvii|xviii|xx|xxi|xxii|xxiii|xxiv|xxix|xxv|xxvi|xxvii|xxviii)?|ly|máj|márc|mat|max|mb|megh|megj|MHSz|min|mk|Mo|Mt|NB|nov|ny(á)?|Nyilv|nyrt|okl|okt|olv|op|orsz|ort|ov(h)?|össz|Ötv|özv|Pf|pl(d)?|prof|prot|Ptk|pu|ref|rk(p)?|róm|röv|rt|sgt|spec|stb|sz(ept|erk)?|Szjt|szoc|Szt(v)?|szül|Tbj|tc|tel|tkp|tszf|tvr|ty|ua|ui|úm|ún|uo|Ve|Vhr|vi(i|ii)?|vö|vsz|Vt(v)?|xc(i|ii|iii|iv|ix|v|vi|vii|viii)?|xi(i|ii|v|x)?|xl(i|ii|iii|iv|ix|v|vi|vii|viii)?|xv(i|ii|iii)?|xx(i|ii|iii|iv|ix|v|vi|vii|viii|x|xi|xii|xiii|xiv|xix|xv|xvi|xvii|xviii)?|zrt)\.")
 
 # pattern for paragraph checking
 paralcap = re.compile(u"(?u)^[a-zöüóőúéáűí].*[.?!] [A-ZÖÜÓŐÚÉÁŰÍ].*[.?!][)”]?$")
@@ -139,7 +139,7 @@ b {abc}*
 	calc("NUMBERTEXT", ("1", "hu")) and
 	calc("NUMBERTEXT", (re.sub(u"[   .]", "", \1), "hu")).replace(u"kettő", u"két").replace(u"ezeregyszáz", u"ezerszáz") !=
 	# változatok: száz vagy egyszáz, ezer vagy egyezer, kettő vagy két
-	re.sub(ur"\begy(száz|ezer)", r"\g<1>", \3).replace(u"ezeregyszáz", u"ezerszáz").replace(u"kettő", u"két")
+	re.sub(r"\begy(száz|ezer)", r"\g<1>", \3).replace(u"ezeregyszáz", u"ezerszáz").replace(u"kettő", u"két")
 	-> = \1 + \2 + calc("NUMBERTEXT", (re.sub(u"[   .]", "", \1), "hu")) +  \4
 	# A két összeg nem egyezik.
 
@@ -379,7 +379,7 @@ fő(irány\w*|közlekedés\w*|szabály\w*|szervező\w*) -> fő \1 # A „fő mű
 hátba (támadás\w*) -> hátba\1			# Egybeírás. 
 időről-időre -> időről időre			# Különírás.
 jing és jang -> jin és jang			# Helyesen jin és jang.
-kőr((öz|út|ut)\w*) <- morph(\0, ur"st:kőr\b") -> kör\1 # Rövid ö-vel a kör összetételeiben.
+kőr((öz|út|ut)\w*) <- morph(\0, r"st:kőr\b") -> kör\1 # Rövid ö-vel a kör összetételeiben.
 légyszíves -> légy szíves|legyél szíves	# Legyél szíves értelemben különírjuk.
 legalább is -> legalábbis			# Egybeírás.
 Lichten(stein\w*) -> Liechten\1			# Helyesen Liechtenstein.
@@ -414,7 +414,7 @@ aword [aáeéiíoóöőuúüűAÁEÉIÍOÓÖŐUÚÜŰ]\w*
 a(?! 1,5\b) <- word(1) and re.match(r"(1|5\d*|[15]\d\d\d)[.]?$", word(1)) -> az # Hibás névelő.
 
 az <- not option("grammar") and word(2) and
-	re.match(ur"(alfejezet|alszakasz|ábr|bekezdés|diagram|fejezet|kép|lap|oldal|paragrafus|szakasz|táblázat)\w*", word(2)) and
+	re.match(r"(alfejezet|alszakasz|ábr|bekezdés|diagram|fejezet|kép|lap|oldal|paragrafus|szakasz|táblázat)\w*", word(2)) and
 	re.match(r"([02-46-9]|[1-46-9]\d|[1-46-9]\d\d|[2346-9]\d\d\d)[.]", word(1)) -> a # Hibás névelő?
 
 az <- option("grammar") and word(1) and
@@ -758,7 +758,7 @@ W \w{4,5}
 # rövid (kétbetűs) tagot tartalmazó összetett szó
 
 W \w{4,}
-{W} <- option("compound") and morph({W}, ur"(?u)pa:\w\w\b") -> =suggest({W}) # Biztos, hogy helyes összetett szó?
+{W} <- option("compound") and morph({W}, r"(?u)pa:\w\w\b") -> =suggest({W}) # Biztos, hogy helyes összetett szó?
 
 # minden képzett összetett szó
 
@@ -912,4 +912,4 @@ def measurement(mnum, min, mout, mstr):
     m = calc("CONVERT_ADD", (float(mnum.replace(",", ".").replace(u"−", "-")), min, mout))
     a = list(set([str(calc("ROUND", (m, 0)))[:-2], str(calc("ROUND", (m, 1))), str(calc("ROUND", (m, 2))), str(m)])) # remove duplicated rounded items
     a.sort(lambda x, y: len(x) - len(y)) # sort by string length
-    return join(a, mstr + "|").replace(".", ",").replace("-", u"−") + mstr
+    return (mstr + "|").join(a).replace(".", ",").replace("-", u"−") + mstr
