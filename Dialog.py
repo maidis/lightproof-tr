@@ -122,7 +122,7 @@ def create_xdl(pkg, lines, target, lang):
         if "=" in i and r"\n" in i:
             helptexts.append(i.split("=")[0])
     for i in lines:
-        i = unicode(i.strip().replace(r"\n", "@#@") + "\n", "UTF-8")
+        i = i.strip().replace(r"\n", "@#@") + "\n"
         lin = lin + 1
         if not comment.match(i):
             if state == 0:
@@ -168,7 +168,7 @@ def create_xdl(pkg, lines, target, lang):
                 if state == 1:
                     target.writestr("dialog/" + lang + "_" + langname + ".default", "")
             elif titl.match(i.strip()):
-                hlp = i.encode("unicode-escape").replace(r"\n","\n").replace(r"\t","\t").replace(r"\x","\\u00").split("@#@", 1)
+                hlp = i.encode("unicode-escape").decode('ascii').replace(r"\n","\n").replace(r"\t","\t").replace(r"\x","\\u00").split("@#@", 1)
                 if len(hlp) > 1:
                     helptexts.append(hlp[0].split("=")[0])
                     f2 = f2 + "hlp_" + hlp[0].split("=")[0] + "=" + hlp[1]
@@ -201,7 +201,7 @@ def c(pkg, dlgdata, target, lang):
  s = "" 
  for i in indexes:
     s = s + xcu_node_header%(pkg, pkg) + \
-        xcu_node*(len(modules[i])/2)%tuple(modules[i]) + \
+        xcu_node*(len(modules[i])//2)%tuple(modules[i]) + \
         xcu_node_footer%(i, pkg)
  target.writestr("dialog/OptionsDialog.xcu", (xcu_header + s + xcu_footer).encode("utf-8"))
 

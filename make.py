@@ -1,13 +1,6 @@
 # -*- encoding: UTF-8 -*-
-#from __future__ import unicode_literals
 import sys, os, zipfile, traceback, Dialog
-try:
-    import ConfigParser as cp    # configparser in Python 3
-    uni = lambda i: unicode(i, "UTF-8")
-except:
-    import configparser as cp
-    uni = str
-
+import configparser as cp
 import pythonpath.lightproof_compile___implname__
 from string import Template
 
@@ -16,22 +9,22 @@ def dist(fn, a):
     a['loc'] = str(dict([[i, [i[0:2], i[3:5], ""]] for i in a["locales"].split(" ")]))
     distname = a['implname'] + "-" + a['version'] + '.oxt'
     z = zipfile.ZipFile(distname, mode='w', compression = zipfile.ZIP_DEFLATED)
-    f = open(fn + ".dat",'r')
-    code = pythonpath.lightproof_compile___implname__.c(uni(f.read()), a['lang'])
+    f = open(fn + ".dat", 'r', encoding="utf-8")
+    code = pythonpath.lightproof_compile___implname__.c(f.read(), a['lang'])
     a["code"] = code["code"]
     a['data'] = code["rules"]
 
     for i in ["META-INF/manifest.xml", "description.xml", "Linguistic.xcu", "Lightproof.py", \
         "pythonpath/lightproof_handler___implname__.py", "pythonpath/lightproof_impl___implname__.py", \
         "pythonpath/lightproof___implname__.py" ]:
-        z.writestr(i.replace("__implname__", a["implname"]), Template(uni(open(i, "r").read())).safe_substitute(a))
+        z.writestr(i.replace("__implname__", a["implname"]), Template(open(i, "r", encoding="utf-8").read()).safe_substitute(a))
 
     for i in a["extras"].split(","):
         z.writestr(i.strip().replace("../", "").replace("__implname__", a["implname"]), \
         open(fn[:fn.rfind("/")+1] + i.strip()).read())
 
     try:
-        d = open(fn + ".dlg", "r").readlines()
+        d = open(fn + ".dlg", "r", encoding="utf-8").readlines()
         Dialog.c(a["implname"], d, z, a["lang"])
     except:
         z.writestr("pythonpath/lightproof_opts_%s.py"%a["implname"], "")
