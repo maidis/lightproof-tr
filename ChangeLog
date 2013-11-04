@@ -1,3 +1,8 @@
+2013-10-14 Olivier Ronez <dicollecte.org>:
+        - Python 3.3 port of the build environment
+        - Workaround for paragraph chunking in LO 4, see
+          http://nabble.documentfoundation.org/Grammar-checker-Undocumented-change-in-the-API-for-LO-4-td4030639.html
+
 2012-12-04 László Németh <nemeth@numbertext.org>:
         - Python 3.3 port
 
