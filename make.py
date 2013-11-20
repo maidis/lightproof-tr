@@ -21,7 +21,7 @@ def dist(fn, a):
 
     for i in a["extras"].split(","):
         z.writestr(i.strip().replace("../", "").replace("__implname__", a["implname"]), \
-        open(fn[:fn.rfind("/")+1] + i.strip()).read())
+        open(fn[:fn.rfind("/")+1] + i.strip(), 'rb').read())
 
     try:
         d = open(fn + ".dlg", "r", encoding="utf-8").readlines()

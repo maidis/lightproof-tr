@@ -1,3 +1,6 @@
+2013-11-20 László Németh <nemeth@numbertext.org>:
+        - Python 3.3 port of build environment of the editor
+
 2013-10-14 Olivier Ronez <dicollecte.org>:
         - Python 3.3 port of the build environment
         - Workaround for paragraph chunking in LO 4, see
