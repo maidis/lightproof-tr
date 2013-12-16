@@ -1,3 +1,14 @@
+2013-12-16 László Németh <nemeth@numbertext.org>:
+- r i t k í t o t t  szöveg felismerése (keskeny szóköz opció bekapcsolásánál),
+  majd cserejavaslat nem törő keskeny szóközökre, ill. szóközök nélkülire.
+  A funkciót Pénzes Dávid javasolta.
+- elromlott keskeny szóközös opció működésének visszaállítása
+- hosszú szavak hibás exponenciális idejű elemzésének javítása (lefagyást
+  okozott más Python komponensek, pl. LibreLogo együttes használatával),
+  a Lightproof lefagyását Pénzes Dávid, a LibreOffice lefagyást Lakó Viktória jelezte
+- tizedestört vagy sorszám: nem figyelmeztet, ha pont követi, tehát sorszám
+- nagy számok ezrestagolásánál többszörös illeszkedés javítása
+
 2012-12-04 László Németh <nemeth@numbertext.org>:
 - Python 3.3 támogatás
 

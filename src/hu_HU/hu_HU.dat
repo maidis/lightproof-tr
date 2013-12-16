@@ -51,9 +51,8 @@ low [a-zöüóőúéáűí]+
 
 abc [a-zöüóűőúéáí]
 ABC [A-ZÖÜÓŰŐÚÉÁÍ]
-Abc {abc}|{ABC}
-abc [a-zöüóűőúéáíA-ZÖÜÓŰŐÚÉÁÍ]+
-word [a-záéíóöőúüűA-ZÉÍÓÖŐÚÜŰ]\w*
+Abc [a-zöüóűőúéáíA-ZÖÜÓŰŐÚÉÁÍ]
+word [a-zöüóűőúéáíA-ZÖÜÓŰŐÚÉÁÍ]+
 
 punct [?!,:;%‰‱°„”]
 
@@ -93,9 +92,8 @@ E ( |$) # space or end of sentence
 # 5 x 6 -> 5 × 6
 # 800x600-as -> 800×600-as
 
-a {abc}+
-b {abc}*
-(?i){a}['´]{b} <- option("apost") -> {a}’{b}	#  Valódi aposztróf. | http://hu.wikipedia.org/wiki/Aposztróf
+b {Abc}*
+(?i){word}['´]{b} <- option("apost") -> {word}’{b}	#  Valódi aposztróf. | http://hu.wikipedia.org/wiki/Aposztróf
 # biz' isten -> biz’ isten
 
 # ’79-ben
@@ -106,18 +104,18 @@ b {abc}*
 
 ######################## idézés ######################
 
-(?i)[\"“”‟„]({abc}[^\"“”‟„]*)[\"“‟] <- option("quot") -> „\1” # Idézőjelek. | http://hu.wikipedia.org/wiki/Idézőjel
-(?i)[\"“”‟]({abc}[^\"“”‟„]*)[\"“”‟] <- option("quot") -> „\1” # Idézőjelek. | http://hu.wikipedia.org/wiki/Idézőjel
+(?i)[\"“”‟„]({word}[^\"“”‟„]*)[\"“‟] <- option("quot") -> „\1” # Idézőjelek. | http://hu.wikipedia.org/wiki/Idézőjel
+(?i)[\"“”‟]({word}[^\"“”‟„]*)[\"“”‟] <- option("quot") -> „\1” # Idézőjelek. | http://hu.wikipedia.org/wiki/Idézőjel
 # A "kicsi" macska. -> A „kicsi” macska.
 
 # ASCII idézőjelek cseréje (,,vmi'', >>vmi<<)
 
-(?i),,({abc}[^\"“”‟„><']*)'' -> „\1” # Idézőjelek. | http://hu.wikipedia.org/wiki/Idézőjel
-(?i)>>({abc}[^\"“”‟„><']*)<< -> »\1« # Idézőjelek. | http://hu.wikipedia.org/wiki/Idézőjel
+(?i),,({word}[^\"“”‟„><']*)'' -> „\1” # Idézőjelek. | http://hu.wikipedia.org/wiki/Idézőjel
+(?i)>>({word}[^\"“”‟„><']*)<< -> »\1« # Idézőjelek. | http://hu.wikipedia.org/wiki/Idézőjel
 
 # angolszász idézőjelek cseréje
 
-(?i)‘+({abc}[^\"“”‟„’]*)’+ -> „\1”|»\1« # Idézőjelek. | http://hu.wikipedia.org/wiki/Idézőjel
+(?i)‘+({word}[^\"“”‟„’]*)’+ -> „\1”|»\1« # Idézőjelek. | http://hu.wikipedia.org/wiki/Idézőjel
 
 [Word]
 
@@ -125,7 +123,7 @@ b {abc}*
 
 " +([«])" -> \1		# Szóköz nélkül tapadó írásjel. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Az_írásjelek#239.
 
-(?i)«({abc}[^\"“”‟„’]*)» -> »\1« 	# Felcserélt belső idézőjelek. | http://hu.wikipedia.org/wiki/Idézőjel
+(?i)«({word}[^\"“”‟„’]*)» -> »\1« 	# Felcserélt belső idézőjelek. | http://hu.wikipedia.org/wiki/Idézőjel
 
 ############### pénz #################################
 
@@ -143,6 +141,11 @@ b {abc}*
 	-> = \1 + \2 + calc("NUMBERTEXT", (re.sub(u"[   .]", "", \1), "hu")) +  \4
 	# A két összeg nem egyezik.
 
+#################### ritkított szöveg ################
+
+# r i t k í t o t t  -> ritkított
+({Abc}[  ]){4,}{Abc}\b <- option("thin") -> =re.sub("[  ]", "", \0) + "\n" + re.sub("[  ]", " ", \0) # Ritkítás nélkül vagy nem törő keskeny szóközökkel:
+
 ######################## számok ######################
 
 [Word]
@@ -151,45 +154,45 @@ b {abc}*
 d1 −?\d{1,3}  # 1, 2 vagy 3 számjegy (opcionális mínusszal)
 d2 −?\d{2,3}  # 2 vagy 3 számjegy (opcionális mínusszal)
 d3 \d{3}    # 3 számjegy
-dn \d{3}(,\w{1,4})?[%‰‱°]?(-\w+)? # 3 számjegy, toldalékkal is
-{d2}{dn}         <- option("numpart") and not option("thou") -> {d2} {dn}	    	# Nagy számok tagolása. (AkH. 274.)
-{d1}{d3}{dn}     <- option("numpart") and not option("thou") -> {d1} {d3} {dn}	# Nagy számok tagolása. (AkH. 274.)
-{d1}{d3}{d3}{dn} <- option("numpart") and not option("thou") -> {d1} {d3} {d3} {dn} # Nagy számok tagolása. (AkH. 274.)
+dn \d{3}(?![  ][0-9])(,\w{1,4})?[%‰‱°]?(-\w+)? # 3 számjegy, toldalékkal is
+{d2}{dn}         <- option("numpart") and not option("thin") -> {d2} {dn}	    	# Nagy számok tagolása. (AkH. 274.)
+{d1}{d3}{dn}     <- option("numpart") and not option("thin") -> {d1} {d3} {dn}	# Nagy számok tagolása. (AkH. 274.)
+{d1}{d3}{d3}{dn} <- option("numpart") and not option("thin") -> {d1} {d3} {d3} {dn} # Nagy számok tagolása. (AkH. 274.)
 # Az 1234567890 -> Az 1 234 567 890
 
-# nagy számok tagolása nem törő keskeny szóközökkel (U+202F) (thou opciótól függően)
-{d2} ?{dn}         <- option("numpart") and option("thou") -> {d2} {dn}	    	# Nagy számok tagolása nem törő keskeny szóközökkel. (AkH. 274.)
-{d1} ?{d3} ?{dn}     <- option("numpart") and option("thou") -> {d1} {d3} {dn}	# Nagy számok tagolása nem törő keskeny szóközökkel. (AkH. 274.)
-{d1} ?{d3} ?{d3} ?{dn} <- option("numpart") and option("thou") -> {d1} {d3} {d3} {dn} # Nagy számok tagolása nem törő keskeny szóközökkel. (AkH. 274.)
+# nagy számok tagolása nem törő keskeny szóközökkel (U+202F) (thin opciótól függően)
+{d2} ?{dn}         <- option("numpart") and option("thin") -> {d2} {dn}	    	# Nagy számok tagolása nem törő keskeny szóközökkel. (AkH. 274.)
+{d1} ?{d3} ?{dn}     <- option("numpart") and option("thin") -> {d1} {d3} {dn}	# Nagy számok tagolása nem törő keskeny szóközökkel. (AkH. 274.)
+{d1} ?{d3} ?{d3} ?{dn} <- option("numpart") and option("thin") -> {d1} {d3} {d3} {dn} # Nagy számok tagolása nem törő keskeny szóközökkel. (AkH. 274.)
 
 # nagy számok tagolása nem törő szóközökkel (U+00A0)
 d1 \d{1,3}  # 1, 2 vagy 3 számjegy (opcionális mínusszal)
 d2 \d{2,3}  # 2 vagy 3 számjegy (opcionális mínusszal)
 d3 \d{3}    # 3 számjegy
 dn \d{3}(,\w+)?[%‰‱°]?(-\w+)? # 3 számjegy, toldalékkal is
--{d2}{dn}         <- option("numpart") and not option("thou") -> −{d2} {dn}	# Nagy számok tagolása. (AkH. 274.)
--{d1}{d3}{dn}     <- option("numpart") and not option("thou") -> −{d1} {d3} {dn}	# Nagy számok tagolása. (AkH. 274.)
--{d1}{d3}{d3}{dn} <- option("numpart") and not option("thou") -> −{d1} {d3} {d3} {dn} # Nagy számok tagolása. (AkH. 274.)
+-{d2}{dn}         <- option("numpart") and not option("thin") -> −{d2} {dn}	# Nagy számok tagolása. (AkH. 274.)
+-{d1}{d3}{dn}     <- option("numpart") and not option("thin") -> −{d1} {d3} {dn}	# Nagy számok tagolása. (AkH. 274.)
+-{d1}{d3}{d3}{dn} <- option("numpart") and not option("thin") -> −{d1} {d3} {d3} {dn} # Nagy számok tagolása. (AkH. 274.)
 
 # nagy számok tagolása nem törő keskeny szóközökkel (U+202F)
--{d2} ?{dn}         <- option("numpart") and option("thou") -> −{d2} {dn}	# Nagy számok tagolása nem törő keskeny szóközökkel. (AkH. 274.)
--{d1} ?{d3} ?{dn}     <- option("numpart") and option("thou") -> −{d1} {d3} {dn}	# Nagy számok tagolása nem törő keskeny szóközökkel. (AkH. 274.)
--{d1} ?{d3} ?{d3} ?{dn} <- option("numpart") and option("thou") -> −{d1} {d3} {d3} {dn} # Nagy számok tagolása nem törő keskeny szóközökkel. (AkH. 274.)
+-{d2} ?{dn}         <- option("numpart") and option("thin") -> −{d2} {dn}	# Nagy számok tagolása nem törő keskeny szóközökkel. (AkH. 274.)
+-{d1} ?{d3} ?{dn}     <- option("numpart") and option("thin") -> −{d1} {d3} {dn}	# Nagy számok tagolása nem törő keskeny szóközökkel. (AkH. 274.)
+-{d1} ?{d3} ?{d3} ?{dn} <- option("numpart") and option("thin") -> −{d1} {d3} {d3} {dn} # Nagy számok tagolása nem törő keskeny szóközökkel. (AkH. 274.)
 
 
 ([-−]?\d[\d,]*)[  ]([%‰‱°](-\w*)?)
 	-> \1\2 # Szóköz nélkül tapadó írásjel. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Az_írásjelek#275.
-([-−]?\d\d*)[.](\d\d*)([%‰‱°](-\w*)?) <- option("comma")
+([-−]?\d\d*)[.](\d\d*)\b(?![.])([%‰‱°](-\w*)?) <- option("comma")
 	-> \1,\2\3		# Tizedesvessző a helyes írásjel. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/Egyéb_tudnivalók#291.
-(\d\d*)[.](\d)
+(\d\d*)[.](\d)\b(?![.])
 	# kivéve, ha tulajdonnév előzi meg (pl. Firefox 3.5
 	<- option("comma") and (not word(-1) or not re.match("[A-Z]", word(-1)))
 	-> \1,\2|\1.\2.	# Tizedestört (AkH. 291.) vagy sorszám?
-((\d\d*[.]){2}\d)
-	# kivéve, ha tulajdonnév előzi meg (pl. Hunspell 1.2.8
-	<- option("comma") and not word(-1) or not re.match("[A-Z]", word(-1))
+((\d\d*[.]){2}\d)\b(?![.])
+	# kivéve, ha tulajdonnév előzi meg (pl. Hunspell 1.2.8,
+	<- option("comma") and option("grammar") and not word(-1) or not re.match("[A-Z]", word(-1))
 	-> \1.	# A sorszámot pont követi.
-(\d\d\d+)[.](\d\d) <- option("comma")
+(\d\d\d+)[.](\d\d)\b(?![.]) <- option("comma")
 	-> \1,\2|\1.\2.	# Tizedestört (AkH. 291.) vagy sorszám?
 # 25.30˚, de 10.20-kor -> 25,30˚, de 10.20-kor
 # 1.5 -> 1,5|1.5.
@@ -463,7 +466,7 @@ hw [a-zA-ZöüóűőúéáíÖÜÓŰŐÚÉÁÍ][a-zA-ZöüóűőúéáíÖÜÓŰ
 
 [word]
 
-event (Advent|Húsvét|Karácsony|Mindenszentek|Pünkösd|(Anyák|Apák|Halottak|Nők) [Nn]apj){abc}*
+event (Advent|Húsvét|Karácsony|Mindenszentek|Pünkösd|(Anyák|Apák|Halottak|Nők) [Nn]apj){abc}+
 {event} <- word(-1) and word(1) == word(1).lower() -> = {event}.lower() # Kisbetűs kifejezés, ha nem cím. | http://hu.wikisource.org/wiki/A_magyar_helyesírás_szabályai/A_kis_és_a_nagy_kezdőbetűk#145.
 # Nemsokára Anyák napja. -> Nemsokára anyák napja.
 
