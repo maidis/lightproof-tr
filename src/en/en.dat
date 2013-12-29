@@ -56,33 +56,33 @@ etc [-–'’\w]*
 
 # rules ("aA", "aAN", "aB" sets are defined at the end of the file)
 
-{a}n{_}{vow}{etc} <- {vow} in aA or {vow}.lower() in aA -> {a}{_}{vow}{etc} # Did you mean: \n http://en.wikipedia.org/wiki/English_articles#Discrimination_between_a_and_an
+{a}n{_}{vow}{etc} <- {vow} in aA or {vow}.lower() in aA -> {a}{_}{vow}{etc} # Did you mean: \n http://en.wikipedia.org/wiki/English_articles#Distinction_between_a_and_an
 
-a{_}{vow}{etc} <- ({vow} <> {vow}.upper()) and not ({vow} in aA or
-	{vow}.lower() in aA) and spell({vow}) -> an{_}{vow}{etc} # Bad article? \n http://en.wikipedia.org/wiki/English_articles#Discrimination_between_a_and_an
+a{_}{vow}{etc} <- ({vow} != {vow}.upper()) and not ({vow} in aA or
+	{vow}.lower() in aA) and spell({vow}) -> an{_}{vow}{etc} # Bad article? \n http://en.wikipedia.org/wiki/English_articles#Distinction_between_a_and_an
 
-a{_}{con}{etc} <- {con} in aAN or {con}.lower() in aAN -> an{_}{con}{etc} # Did you mean: \n http://en.wikipedia.org/wiki/English_articles#Discrimination_between_a_and_an
+a{_}{con}{etc} <- {con} in aAN or {con}.lower() in aAN -> an{_}{con}{etc} # Did you mean: \n http://en.wikipedia.org/wiki/English_articles#Distinction_between_a_and_an
 
-{a}n{_}{con}{etc} <- ({con} <> {con}.upper()) and not ({con} in aA or
-	{con}.lower() in aAN) and not {con} in aB and spell({con}) -> {a}{_}{con}{etc} # Bad article? \n http://en.wikipedia.org/wiki/English_articles#Discrimination_between_a_and_an
+{a}n{_}{con}{etc} <- ({con} != {con}.upper()) and not ({con} in aA or
+	{con}.lower() in aAN) and not {con} in aB and spell({con}) -> {a}{_}{con}{etc} # Bad article? \n http://en.wikipedia.org/wiki/English_articles#Distinction_between_a_and_an
 
 # rules for sentences beginning with "A"
 
-^A{_}{vow}{etc} <- ({vow} <> {vow}.upper()) and not ({vow} in aA or
-	{vow}.lower() in aA) and spell({vow}) -> An{_}{vow}{etc} # Bad article? \n http://en.wikipedia.org/wiki/English_articles#Discrimination_between_a_and_an
+^A{_}{vow}{etc} <- ({vow} != {vow}.upper()) and not ({vow} in aA or
+	{vow}.lower() in aA) and spell({vow}) -> An{_}{vow}{etc} # Bad article? \n http://en.wikipedia.org/wiki/English_articles#Distinction_between_a_and_an
 
-^A{_}{con}{etc} <- {con} in aAN or {con}.lower() in aAN -> An{_}{con}{etc} # Did you mean: \n http://en.wikipedia.org/wiki/English_articles#Discrimination_between_a_and_an
+^A{_}{con}{etc} <- {con} in aAN or {con}.lower() in aAN -> An{_}{con}{etc} # Did you mean: \n http://en.wikipedia.org/wiki/English_articles#Distinction_between_a_and_an
 
 # check numbers
 
 nvow (8[0-9]*|1[18](000)*)(th)? # 8, 8th, 11, 11th, 18, 18th, 11000, 11000th...
 
-a{_}{nvow}{etc} -> an{_}{nvow}{etc} # Did you mean: \n http://en.wikipedia.org/wiki/English_articles#Discrimination_between_a_and_an
-^A{_}{nvow}{etc} -> An{_}{nvow}{etc} # Did you mean: \n http://en.wikipedia.org/wiki/English_articles#Discrimination_between_a_and_an
+a{_}{nvow}{etc} -> an{_}{nvow}{etc} # Did you mean: \n http://en.wikipedia.org/wiki/English_articles#Distinction_between_a_and_an
+^A{_}{nvow}{etc} -> An{_}{nvow}{etc} # Did you mean: \n http://en.wikipedia.org/wiki/English_articles#Distinction_between_a_and_an
 
 ncon [0-79][0-9]*
 
-{a}n{_}{ncon}{etc} <- not {ncon}[:2] in ["11", "18"] -> {a}{_}{ncon}{etc} # Did you mean: \n http://en.wikipedia.org/wiki/English_articles#Discrimination_between_a_and_an
+{a}n{_}{ncon}{etc} <- not {ncon}[:2] in ["11", "18"] -> {a}{_}{ncon}{etc} # Did you mean: \n http://en.wikipedia.org/wiki/English_articles#Distinction_between_a_and_an
 
 # paragraph capitalization
 
@@ -345,7 +345,8 @@ aA = set(["eucalypti", "eucalyptus", "Eucharist", "Eucharistic",
 "urethra", "urethral", "urethritis", "Urey", "Uri", "uric", "urinal",
 "urinalysis", "urinary", "urinated", "urinating", "urination", "urine",
 "urogenital", "urokinase", "urologist", "urologists", "urology",
-"Uruguay", "Uruguayan", "Uruguayans", "US", "USA", "usable", "usage",
+"Uruguay", "Uruguayan", "Uruguayans", "US", "USA", "usability",
+"usable", "usably", "usage",
 "usages", "use", "used", "useful", "usefulness", "usefully", "useless",
 "uselessly", "uselessness", "Usenet", "user", "users", "uses", "using",
 "usual", "usually", "usurer", "usurers", "usuress", "usurial", "usurious",
@@ -368,7 +369,7 @@ aAN = set(["f", "F", "FBI", "FDA", "heir", "heirdom", "heired",
 "R", "s", "S", "SMS", "sos", "SOS", "SPF", "std", "STD", "SUV", "x",
 "X", "XML"])
 
-aB = set(["H", "hallucination", "haute", "hauteur", "herb", "herbaceous", "herbal",
+aB = set(["H", "habitual", "hallucination", "haute", "hauteur", "herb", "herbaceous", "herbal",
 "herbalist", "herbalism", "heroic", "hilarious", "historian", "historic", "historical",
 "homage", "homophone", "horrendous", "hospitable", "horrific", "hotel", "hypothesis", "Xmas"])
 
@@ -378,5 +379,5 @@ def measurement(mnum, min, mout, mstr, decimal, remove):
     m = calc("CONVERT_ADD", (float(eval(mnum.replace(remove, "").replace(decimal, ".").replace(u"−", "-"))), min, mout))
     a = list(set([str(calc("ROUND", (m, 0)))[:-2], str(calc("ROUND", (m, 1))), str(calc("ROUND", (m, 2))), str(m)])) # remove duplicated rounded items
     a.sort(lambda x, y: len(x) - len(y)) # sort by string length
-    return join(a, mstr + "\n").replace(".", decimal).replace("-", u"−") + mstr
+    return (mstr + "\n").join(a).replace(".", decimal).replace("-", u"−") + mstr
 

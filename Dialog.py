@@ -1,14 +1,14 @@
 # -*- encoding: UTF-8 -*-
+from __future__ import unicode_literals
 import sys
 import re
-from string import split
 import os
 import codecs
 
-comment = re.compile(ur"[\n#]")
-ids = re.compile(ur"\w+:\s*\*?\w+(,\s*\*?\w+)*")
-langu = re.compile(ur"\[.+=.+\]\s*")
-titl = re.compile(ur"\w+\s*=\s*")
+comment = re.compile(r"[\n#]")
+ids = re.compile(r"\w+:\s*\*?\w+(,\s*\*?\w+)*")
+langu = re.compile(r"\[.+=.+\]\s*")
+titl = re.compile(r"\w+\s*=\s*")
 helptexts = []
 
 xdl_header = """<?xml version="1.0" encoding="UTF-8"?>
@@ -30,17 +30,17 @@ oor:name="%s" oor:package="org.openoffice" xml:lang="en-US">
 </info>
 <templates>
 """
-xcs_leaf_header = ur"""
+xcs_leaf_header = r"""
                 <group oor:name="%s">
                         <info>
                                 <desc>The data for one leaf.</desc>
                         </info>
 """
-xcs_leaf = ur"""<prop oor:name="%s" oor:type="xs:string">
+xcs_leaf = r"""<prop oor:name="%s" oor:type="xs:string">
                                 <value></value>
 </prop>
 """
-xcs_leaf_footer = ur"""                </group>
+xcs_leaf_footer = r"""                </group>
 """
 xcs_component_header = """        </templates>
         <component>
@@ -122,19 +122,19 @@ def create_xdl(pkg, lines, target, lang):
         if "=" in i and r"\n" in i:
             helptexts.append(i.split("=")[0])
     for i in lines:
-        i = unicode(i.strip().replace(r"\n", "@#@") + "\n", "UTF-8")
+        i = i.strip().replace(r"\n", "@#@") + "\n"
         lin = lin + 1
         if not comment.match(i):
             if state == 0:
                 ok = True
                 if ids.match(i.strip()):
-                    j = split(i.strip(),":")
+                    j = i.strip().split(":")
                     f2 = f2 + xdl_group%(j[0].strip(), k, k2 * 10 + 5, j[0].strip())
-                    for l in split(j[1],","):
+                    for l in j[1].split(","):
                         k = k + 1
                         k2 = k2 + 1
                         l = l.strip()
-                        la = split(l, " ")
+                        la = l.split(" ")
                         l3 = 0
                         itemlen = int(240 / len(la)) 
                         for l2 in la:
@@ -168,14 +168,14 @@ def create_xdl(pkg, lines, target, lang):
                 if state == 1:
                     target.writestr("dialog/" + lang + "_" + langname + ".default", "")
             elif titl.match(i.strip()):
-                hlp = i.encode("unicode-escape").replace(r"\n","\n").replace(r"\t","\t").replace(r"\x","\\u00").split("@#@", 1)
+                hlp = i.encode("unicode-escape").decode('ascii').replace(r"\n","\n").replace(r"\t","\t").replace(r"\x","\\u00").split("@#@", 1)
                 if len(hlp) > 1:
                     helptexts.append(hlp[0].split("=")[0])
                     f2 = f2 + "hlp_" + hlp[0].split("=")[0] + "=" + hlp[1]
                     hlp[0] = hlp[0] + "\n"
                 f2 = f2 + hlp[0]
             elif not ok:
-                print "Syntax error in line %d: %s" %(lin, i)
+                print ("Syntax error in line %d: %s" %(lin, i))
     if "xdl" in f2n:
         f2 = f2 + xdl_footer
     target.writestr(f2n, f2)
@@ -201,7 +201,7 @@ def c(pkg, dlgdata, target, lang):
  s = "" 
  for i in indexes:
     s = s + xcu_node_header%(pkg, pkg) + \
-        xcu_node*(len(modules[i])/2)%tuple(modules[i]) + \
+        xcu_node*(len(modules[i])//2)%tuple(modules[i]) + \
         xcu_node_footer%(i, pkg)
  target.writestr("dialog/OptionsDialog.xcu", (xcu_header + s + xcu_footer).encode("utf-8"))
 

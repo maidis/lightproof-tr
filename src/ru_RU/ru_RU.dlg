@@ -23,7 +23,7 @@
 # options (starred options are checked)
 
 grammar: *hyphen *comma, *multiword *together
-proofreading:  *dup dup2, *common *space, *abbreviation
+proofreading:  *common *space, *abbreviation *dup 
 others: numsep, *typographica, *quotation
 
 # titles
@@ -40,27 +40,25 @@ together=Together/separately
 proofreading=Proofreading
 space=Space mistake
 typographica=Typographica
-dup=Word duplication within clauses
-dup2=Word duplication within sentences
+dup=Word duplication
 others=Others
 numsep=Separation of large numbers (ISO)
 quotation=Quotation
 
 [ru_RU=Проверка грамматики (Русский язык)]
 
-abbreviation=Аббревиатуры
+abbreviation=Аббревиатуры \n Аббревиатуры, сокращения и знаки пунктуации.
 grammar=Грамматика
-hyphen=Дефис
-comma=Пунктуация
-common=Общие ошибки
-multiword=Словосочетания
-together=Слитно/раздельно
+hyphen=Дефис \n Правописание слов через дефис, слитно или раздельно.
+comma=Пунктуация \n Поиск ошибок в расстановке знаков препинания.
+common=Общие ошибки \n Поиск прочих ошибок 
+multiword=Словосочетания \n Правописание словосочетаний и устойчивых оборотов.
+together=Слитно/раздельно \n Правописание слов слитно или раздельно.
 proofreading=Стилистика
-space=Пробел
-typographica=Типографика
-dup=Повтор слов в словосочетаниях
-dup2=Повтор слов в предложениях
+space=Пробел \n Поиск ошибок с пробелом: двойной пробел, пробел перед знаками пунктуации.
+typographica=Типографика \n Предлагать замену сочетаний знаков на специальные символы.
+dup=Повтор слов \n Поиск повторяющихся слов
 others=Прочее
-numsep=Разделители групп разрядов (ISO) для чисел
-quotation=Кавычки
+numsep=Разделители групп разрядов (ISO) для чисел \n Разделители групп разрядов (ISO) для больших чисел
+quotation=Кавычки \n Предлагать замену кавычек на кавычки-«ёлочки» или парные кавычки.
 

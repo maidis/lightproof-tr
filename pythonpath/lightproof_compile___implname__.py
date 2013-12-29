@@ -1,5 +1,5 @@
+from __future__ import unicode_literals
 import sys, re, traceback
-from string import split
 
 repl = {}
 tests = []
@@ -105,9 +105,9 @@ def mysplit(s, line, oldline, debug):
         # modes
         if mode == "[Word]" or mode == "[word]":
             if s1[0] == '^':
-                s1 = ur"((?<=[!?.] )|^)" + s1[1:] + ur"(?![-\w\u2013\u00AD])"
+                s1 = r"((?<=[!?.] )|^)" + s1[1:] + r"(?![-\w\u2013\u00AD])"
             else:
-                s1 = ur"(?<![-\w\u2013.,\u00AD])" + s1 + ur"(?![-\w\u2013\u00AD])"
+                s1 = r"(?<![-\w\u2013.,\u00AD])" + s1 + r"(?![-\w\u2013\u00AD])"
         # modes with casing ([Word] or [Char])
         if mode == "[Word]" or mode == "[Char]":
             s1 = "(?i)" + s1
@@ -274,7 +274,7 @@ def c(rules, lang, debug = False):
                 dic = dic + [item]
 
     result["rules"] = dic
-    code = re.sub(r"(?<![\\])\\n", "\n", code.encode("unicode-escape"))
+    code = re.sub(r"(?<![\\])\\n", "\n", code.encode("unicode-escape").decode('ascii'))
 
     result["code"] = re.sub(r"(?<![\\])\\t", "\t", code).replace(r"\\n", r"\n").replace(r"\\t", r"\t")
 

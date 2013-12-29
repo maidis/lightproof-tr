@@ -1,3 +1,33 @@
+2013-11-20 László Németh <nemeth@numbertext.org>:
+        - Python 3.3 port of build environment of the editor
+
+2013-10-14 Olivier Ronez <dicollecte.org>:
+        - Python 3.3 port of the build environment
+        - Workaround for paragraph chunking in LO 4, see
+          http://nabble.documentfoundation.org/Grammar-checker-Undocumented-change-in-the-API-for-LO-4-td4030639.html
+
+2012-12-04 László Németh <nemeth@numbertext.org>:
+        - Python 3.3 port
+
+2012-11-23 László Németh <nemeth@numbertext.org>:
+        - fix strange false positives resulted by a synchronization problem (missing
+          alternatives with unloaded dictionary), the problem reported by Olivier Ronez
+
+2012-09-18 László Németh <nemeth@numbertext.org>:
+        - fix suggest() splitting
+
+2012-08-24 László Németh <nemeth@numbertext.org>:
+        - fix URL splitting
+        - update URLs in English rules
+
+2012-08-23 László Németh <nemeth@numbertext.org>:
+        - fix fdo#46542 ("an usability" instead of "a usability") reported by Roman Eisele
+        - fix fdo#46549 (allow "an habitual", too), reported by jacobwwood at fdo
+        - fixes for English and Hungarian modules
+
+2009-08-21  Yakov Reztsov <yr at myooo dot ru>
+	* src/ru_RU/*: fixes and new Russian grammar rules
+
 2012-07-09  László Németh <nemeth@numbertext.org>:
         - fix positions of underlining of part of the matched pattern:
           (foo) (bar) -2> baz # Did you mean?

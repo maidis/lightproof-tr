@@ -1,6 +1,6 @@
 # -*- encoding: UTF-8 -*-
 # Lightproof grammar checker for LibreOffice and OpenOffice.org
-# 2009-2012 (c) László Németh (nemeth at numbertext org), license: MPL 1.1 / GPLv3+ / LGPLv3+
+# 2009-2012 (c) Laszlo Nemeth (nemeth at numbertext org), license: MPL 1.1 / GPLv3+ / LGPLv3+
 
 import uno, unohelper, os, sys, traceback
 from lightproof_impl_${implname} import locales
@@ -77,6 +77,13 @@ class Lightproof( unohelper.Base, XProofreader, XServiceInfo, XServiceName, XSer
         aRes.aProperties = ()
         aRes.xProofreader = self
         aRes.aErrors = ()
+        # PATCH FOR LO 4
+        # Fix for http://nabble.documentfoundation.org/Grammar-checker-Undocumented-change-in-the-API-for-LO-4-td4030639.html
+        if nStartOfSentencePos != 0:
+            return aRes
+        aRes.nStartOfNextSentencePosition = len(rText)
+        # END OF PATCH
+
         if len(rProperties) > 0 and rProperties[0].Name == "Update":
             try:
                 import lightproof_compile_${implname}
