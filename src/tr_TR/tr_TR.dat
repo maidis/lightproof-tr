@@ -26,7 +26,6 @@ teşekkür ve (şükran[a-z]+) -> teşekkür + generate(u"teşekkür", \1)[0]) #
 
 [Word]
 
-#TODO: Değişimden sonra büyük harfler korunmuyor? Ayrı kurallar yazmak pratik değil. Doğru yolu henüz göremedim.
 # garniturk'ten sevgilerle
 # teşekkür ettim için cümle geçmiş zamanda mı kontrolü lazım
 teşekkür ediyorum -> teşekkür ederim\nteşekkürler # Teşekkür etmek geniş zamanlıdır. Çok nadir durumlar hariç doğru kullanımı:
