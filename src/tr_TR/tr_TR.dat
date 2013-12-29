@@ -10,6 +10,14 @@
 # pattern <- condition -> suggestion # warning message
 #
 
+#TODO: Değişimden sonra büyük harfler korunmuyor? Ayrı kurallar yazmak pratik değil. Doğru yolu henüz göremedim.
+# garniturk'ten sevgilerle
+# teşekkür ettim için cümle geçmiş zamanda mı kontrolü lazım
+[Tt]eşekkür ediyorum -> teşekkür ederim\nteşekkürler # Teşekkür etmek geniş zamanlıdır. Çok nadir durumlar hariç doğru kullanımı:
+
+# geçtiğimiz -> geçen
+[Gg]eçtiğimiz (hafta|ay|gün|yıl|sene) -> geçen \1 # Zaman geçer, biz zamandan geçmeyiz:
+
 
 # duplicates
 
