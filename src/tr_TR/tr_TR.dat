@@ -1,5 +1,26 @@
 # Turkish sentence checking
 
+# definitions | tanımlamalar
+
+# Türk alfabesindeki harfler | Turkish alphabet letters
+# https://tr.wikipedia.org/wiki/T%C3%BCrk_alfabesi
+
+Abc [a-zA-ZabcçdefgğhıijklmnoöprsştuüvyzABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ]+
+abc [a-zabcçdefgğhıijklmnoöprsştuüvyz]+
+ABC [A-ZABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ]+
+
+unlu [aeıioöuüAEIİOÖUÜ]
+
+kalin_unlu [aıouAIOU]
+ince_unlu [eiöüEİÖÜ]
+
+duz_unlu [aeıiAEIİ]
+yuvarlak_unlu [oöuüOÖUÜ]
+
+genis_unlu [aeoöAEOÖ]
+dar_unlu [ıiuüIİUÜ]
+
+
 # word-level rules (case-sensitive)
 
 [word]
@@ -20,7 +41,9 @@ için için -> için # Şunu mu demek istediniz:
 
 yayın ve neşriyat -> yayın # Şunu mu demek istediniz:
 
-teşekkür ve (şükran[a-z]+) -> teşekkür + generate(u"teşekkür", \1)[0]) # Böyle mi ki?
+teşekkür ve (şükran[a-z]+) -> teşekkür + generate(u"teşekkür", \1)[0] # Böyle mi ki?
+
+(\w+) <- "deneme" in stem(\1) -> dene # One of the stem of the word is "dene"
 
 # word-level rules (case-insensitive)
 
@@ -32,3 +55,23 @@ teşekkür ediyorum -> teşekkür ederim\nteşekkürler # Teşekkür etmek geni�
 
 # geçtiğimiz -> geçen
 geçtiğimiz (hafta|ay|gün|yıl|sene) -> geçen \1 # Zaman geçer, biz zamandan geçmeyiz:
+
+# Wrong structured words | Yapıları yanlış olan sözcükler
+(yemek|yemekler) yiyilip -> \1 yenilip # Yemek eyleminin edilgeni yenilmek'tir
+bölgevi -> bölgesel # Şunu mu demek istediniz:
+tezahüratlar(|ım|ın|ı|ımız|ınız|ımı|ını|ımızı|ınızı) -> tezahürat\1 # Tezahürat zaten çoğuldur
+sayfiyelik -> yazlık # Sayfiye yazlık anlamındadır. Üzerine bir de Türkçe +lık eki getirilmemelidir
+kardeşane -> kardeşçe # Kardeş Türkçe, ane eki Farsçadır
+
+[word]
+# Soyisimleriyle karışmaması için
+kutlu(larım|lar|lanan) -> kut\1 # Şunu mu demek istediniz:
+
+[Word]
+
+# Words that are confused with others | Birbiriyle karıştırılan sözcükler
+
+# + aralarında arasında var vardır - bulunduğu - adı karışan > ayrıntı | ayrım
+# \w+ ayrıntı(|) <- re.search(u"(aralarında|arasında|var|vardır), \1) -> ayrım # Teferruat, detay anlamlarına gelen ayrıntı yerine fark anlamına gelen ayrım sözcüğü kullanılmalıdır
+
+
