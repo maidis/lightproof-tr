@@ -63,6 +63,7 @@ bölgevi -> bölgesel # Şunu mu demek istediniz:
 tezahüratlar(|ım|ın|ı|ımız|ınız|ımı|ını|ımızı|ınızı) -> tezahürat\1 # Tezahürat zaten çoğuldur
 sayfiyelik -> yazlık # Sayfiye yazlık anlamındadır. Üzerine bir de Türkçe +lık eki getirilmemelidir
 kardeşane -> kardeşçe # Kardeş Türkçe, ane eki Farsçadır
+olabilmeme(\w+) -> = 'olmama' + \1.replace(u"e",u"a").replace(u"i","ı").replace(u"ö",u"o").replace(u"ü",u"u") # Olabilme eyleminin olumsuz biçimi olabilmeme değildir:
 
 [word]
 # Soyisimleriyle karışmaması için
