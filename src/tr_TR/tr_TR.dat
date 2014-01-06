@@ -1,8 +1,8 @@
-# Turkish sentence checking
+# Turkish sentence checking | Türkçe cümle kontrolü
 
 # definitions | tanımlamalar
 
-# Türk alfabesindeki harfler | Turkish alphabet letters
+# Turkish alphabet letters | Türk alfabesindeki harfler
 # https://tr.wikipedia.org/wiki/T%C3%BCrk_alfabesi
 
 Abc [a-zA-ZabcçdefgğhıijklmnoöprsştuüvyzABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ]+
@@ -32,7 +32,7 @@ dar_unlu [ıiuüIİUÜ]
 #
 
 
-# duplicates
+## Duplicates | Yinelemeler ##
 
 ve ve -> ve # Şunu mu demek istediniz:
 ya da ya da -> ya da # Şunu mu demek istediniz:
@@ -56,7 +56,8 @@ teşekkür ediyorum -> teşekkür ederim\nteşekkürler # Teşekkür etmek geni�
 # geçtiğimiz -> geçen
 geçtiğimiz (hafta|ay|gün|yıl|sene) -> geçen \1 # Zaman geçer, biz zamandan geçmeyiz:
 
-# Wrong structured words | Yapıları yanlış olan sözcükler
+## Wrong structured words | Yapıları yanlış olan sözcükler ##
+
 (yemek|yemekler) yiyilip -> \1 yenilip # Yemek eyleminin edilgeni yenilmek'tir
 bölgevi -> bölgesel # Şunu mu demek istediniz:
 tezahüratlar(|ım|ın|ı|ımız|ınız|ımı|ını|ımızı|ınızı) -> tezahürat\1 # Tezahürat zaten çoğuldur
@@ -74,4 +75,45 @@ kutlu(larım|lar|lanan) -> kut\1 # Şunu mu demek istediniz:
 # + aralarında arasında var vardır - bulunduğu - adı karışan > ayrıntı | ayrım
 # \w+ ayrıntı(|) <- re.search(u"(aralarında|arasında|var|vardır), \1) -> ayrım # Teferruat, detay anlamlarına gelen ayrıntı yerine fark anlamına gelen ayrım sözcüğü kullanılmalıdır
 
+
+## Words that are confused with others | Birbirleriyle karıştırılan sözcükler ##
+
+
+## Spelling mistakes | Yazım yanlışları ##
+
+
+## | Yanlış anlamla kullanılan sözcükler ##
+
+
+## Unneccessary words | Gereksiz sözcükler ##
+
+
+## Unnecessary auxiliary verb | Gereksiz yardımcı eylemler ##
+
+
+## | Çelişen sözler ##
+
+
+## Propositional phrase errors | Tamlama yanlışları ##
+
+
+## Subject, object, verb mistakes | Özne, tümleç, yüklem yanlışları ##
+
+
+## Wrong placed words | Yanlış yerde bulunan sözcükler ##
+
+
+##  | Çeviri kokan sözler ##
+
+
+##  | Bozuk anlatımlar ##
+
+
+## | Özentiler ##
+
+
+## | Atasözlerinde yanlışlar ##
+
+
+## | Deyimlerde yanlışlar ##
 
