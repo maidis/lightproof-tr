@@ -63,7 +63,19 @@ bölgevi -> bölgesel # Şunu mu demek istediniz:
 tezahüratlar(|ım|ın|ı|ımız|ınız|ımı|ını|ımızı|ınızı) -> tezahürat\1 # Tezahürat zaten çoğuldur
 sayfiyelik -> yazlık # Sayfiye yazlık anlamındadır. Üzerine bir de Türkçe +lık eki getirilmemelidir
 kardeşane -> kardeşçe # Kardeş Türkçe, ane eki Farsçadır
+
+# aşık olabilmeme kızdım: doğru
 olabilmeme(\w+) -> = 'olmama' + \1.replace(u"e",u"a").replace(u"i","ı").replace(u"ö",u"o").replace(u"ü",u"u") # Olabilme eyleminin olumsuz biçimi olabilmeme değildir:
+
+ver(ebilin)(\w+) -> verilebil\2 # Yeterlik birleşik eylemine ekler yanlış getirilmiştir. | Çatı eki ver köküne, kişi ve zaman eki de bil köküne gelmeli:
+
+# alınabiliniyor -> alınabiliyor
+# olunabilinecek -> olunabilecek
+# okunabilinecek -> okunabilecek
+(al|ol|ok)(ınabil|unabil)(in)(\w+) -> \1\2\4 # Şunu mu demek istediniz:
+
+# geçebilemez -> geçemez
+geç(ebil)(\w+) -> geç\2 # Türkçe'de geç\1\2 diye bir kelime yoktur:
 
 [word]
 # Soyisimleriyle karışmaması için
