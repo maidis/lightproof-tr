@@ -77,6 +77,23 @@ ver(ebilin)(\w+) -> verilebil\2 # Yeterlik birleşik eylemine ekler yanlış get
 # geçebilemez -> geçemez
 geç(ebil)(\w+) -> geç\2 # Türkçe'de geç\1\2 diye bir kelime yoktur:
 
+# geliştirebilmemiş -> geliştirememiş
+geliştire(bil)memiş(\w*) -> geliştirememiş\2 # Bu kullanım eski yazıda geçerliydi. Şu an kullanılan biçimi:
+
+# nitelendirilebilinir -> nitelendirilebilir
+# görülebilinir -> görülebilir
+# yazılabilinir -> yazılabilir
+(nitelendirile|görüle|yazıla)(|ne|na)(bil)(in)(\w+) -> \1\3\5 # Yeterlik eylemi edilgen duruma getirilmek istendiğinde edilgenlik eki sadece birinci eyleme eklenir. | Bilmek eyleminin edilgen yapılması gerekmez:
+
+kaçtırıl(\w+) -> kaçırıl\1|kaçırtıl\1 # Şunlardan birini mi demek istediniz:
+
+arıtlan(\w+) -> arıtıl\1 # Arıtmak eyleminin edilgeni arıtılmak'tır:
+
+erdemli(\w+) -> erdemlili\1 # Erdemlik yanlış bir sözcüktür. | Erdem, Osmanlıca fazilet'in karşılığı Türkçe bir sözcüktür. | Faziletli olmak'ın Türkçesi de erdemlilik'tir.
+
+# TODO: Askercil Demokrasi diye bir kitap var, bunun için bir istisna oluşturulabilir
+askercil -> askeri # -cil eki eklendiği sözcüğe alışkanlık, düşkünlük ya da azlık, benzerlik anlamı katar. | Bu sözcükte böyle bir anlam yoktur:
+
 [word]
 # Soyisimleriyle karışmaması için
 kutlu(larım|lar|lanan) -> kut\1 # Şunu mu demek istediniz:
