@@ -94,6 +94,14 @@ erdemli(\w+) -> erdemlili\1 # Erdemlik yanlış bir sözcüktür. | Erdem, Osman
 # TODO: Askercil Demokrasi diye bir kitap var, bunun için bir istisna oluşturulabilir
 askercil -> askeri # -cil eki eklendiği sözcüğe alışkanlık, düşkünlük ya da azlık, benzerlik anlamı katar. | Bu sözcükte böyle bir anlam yoktur:
 
+iyile(|t)me(\w+) -> iyileştir\1me\2 # -lemek ekinin görevlerinden biri de bir nesneyi eklendiği sözcük durumuna getirmektir. | Ancak bu kural bu sözcüğe uygulanmaz:
+
+en iyileştirmek -> en iyi duruma getirmek # Şunu mu demek istediniz:
+
+koktur(|ma)(\w+) -> kokut\1\2 # Kokmak'ın ettirgen biçimi kokutmak'tır:
+
+payandala(\w+) -> = 'destekle' + \1.replace(u"a",u"e").replace(u"ı","i").replace(u"o",u"ö").replace(u"u",u"ü") # Türkçe'de bu kelimenin bir yeri yoktur:
+
 [word]
 # Soyisimleriyle karışmaması için
 kutlu(larım|lar|lanan) -> kut\1 # Şunu mu demek istediniz:
