@@ -58,11 +58,15 @@ geçtiğimiz (hafta|ay|gün|yıl|sene) -> geçen \1 # Zaman geçer, biz zamandan
 
 ## Wrong structured words | Yapıları yanlış olan sözcükler ##
 
-(yemek|yemekler) yiyilip -> \1 yenilip # Yemek eyleminin edilgeni yenilmek'tir
-bölgevi -> bölgesel # Şunu mu demek istediniz:
-tezahüratlar(|ım|ın|ı|ımız|ınız|ımı|ını|ımızı|ınızı) -> tezahürat\1 # Tezahürat zaten çoğuldur
-sayfiyelik -> yazlık # Sayfiye yazlık anlamındadır. Üzerine bir de Türkçe +lık eki getirilmemelidir
-kardeşane -> kardeşçe # Kardeş Türkçe, ane eki Farsçadır
+(yemek|yemekler) yiyilip -> \1 yenilip # Yemek eyleminin edilgeni yenilmek'tir:
+
+bölgevi -> bölgesel # Arapça nispet ekinin Türkçe bir sözcüğe eklenmesi yanlıştır:
+
+tezahüratlar(|ım|ın|ı|ımız|ınız|ımı|ını|ımızı|ınızı) -> tezahürat\1 # Tezahürat zaten çoğuldur:
+
+sayfiyelik -> yazlık # Sayfiye yazlık anlamındadır. Üzerine bir de Türkçe +lık eki getirilmemelidir:
+
+kardeşane -> kardeşçe # Kardeş Türkçe, ane eki Farsçadır:
 
 # aşık olabilmeme kızdım: doğru
 olabilmeme(\w+) -> = 'olmama' + \1.replace(u"e",u"a").replace(u"i","ı").replace(u"ö",u"o").replace(u"ü",u"u") # Olabilme eyleminin olumsuz biçimi olabilmeme değildir:
@@ -101,6 +105,19 @@ en iyileştirmek -> en iyi duruma getirmek # Şunu mu demek istediniz:
 koktur(|ma)(\w+) -> kokut\1\2 # Kokmak'ın ettirgen biçimi kokutmak'tır:
 
 payandala(\w+) -> = 'destekle' + \1.replace(u"a",u"e").replace(u"ı","i").replace(u"o",u"ö").replace(u"u",u"ü") # Türkçe'de bu kelimenin bir yeri yoktur:
+
+alıkoyul(\w+) -> alıkonul\1 # Alıkoymak eylemliğinin edilgen çatısı alıkonulmak'tır:
+
+pahalılat(\w+) -> = 'pahalılaştır' + \1.replace(u"tı",u"dı") # Pahalılamak diye bir eylemlik ve dolayısıyla bunun ettirgeni pahalılatmak yoktur:
+
+çirkinlet(\w+) -> = 'çirkinleştir' + \1.replace(u"ti",u"di") # Çirkin duruma getirmek için şu sözcük kullanılır:
+
+okunul(\w+) -> okun\1 # Şunu mu demek istediniz:
+
+yesyeni -> yepyeni # Yesyeni, yepisyeni gibi doğru olmayan kullanımlardan kaçınılması gerekir:
+
+kendi(\w+) tanıştır(\w+) -> = 'kendi' + \1 + ' tanıt' + \2.replace(u"dı",u"tı") # Bir kimsenin kendisini ya da başkasını tanınır duruma getirmesi | tanıtmak sözcüğüyle anlatılır:
+
 
 [word]
 # Soyisimleriyle karışmaması için
