@@ -1,34 +1,34 @@
-# Options and title texts for the Settings and conditional rules
+# Ayarlar ve koşullu kurallar için seçenekler ve başlık metinleri
 #
-# THe dialog windows contain only grouped checkboxes.
+# İletişim penceresi yalnızca gruplandırılmış onay kutularını içerir.
 #
-# Format of the dialog definition:
+# İletişim kutusu tanımlarının biçimi:
 #
-# GroupID: OptionID, OptionID ...
-# Group2ID: OptionID, OptionID ...
+# GrupADI: SeçenekADI, BirBaşkaSeçenekADI ...
+# Grup2ADI: Seçenek2ADI, BirBaşkaSeçenekADI ...
 # ...
-# [Language_code=[title of the node/]title of the window]
-# OptionID=title of the option
-# Option2ID=title of the option
+# [Dil_kodu=[düğüm başlığı/]pencere başlığı]
+# SeçenekADI=seçeneğin başlığı
+# Seçenek2ADI=seçeneğin başlığı
 #
-# The first language is the default language for other locales
-# (use en_US or the common language of your country)
+# İlk dil diğer yereller için öntanımlı dildir
+# (en_US veya ülkenizin ortak dilini kullanın)
 #
-# The OptionIDs declared here are used in the rules, too. For example:
+# Burada tanımlanan SeçenekAD'ları kurallarda da kullanılabilir. Örneğin:
 #
-# foo <- option("style") -> bar # bar is far better
+# hede <- option("bicim") -> dede # dede çok daha iyidir:
 #
-# this rule depends from the state of the "style" checkbox.
+# bu kural "bicim" onay kutusunun durumuna bağlı olacaktır.
 
-# options (starred options are checked)
+# seçenekler (yıldızlı seçenekler aktifleştirilmiş olanlardır)
 
 spelling: grammar cap dup pair
 punctuation: *spaces mdash quotation *times, spaces2 ndash apostrophe ellipsis, spaces3 minus - -
 others: metric numsep, nonmetric
 
-# titles
+# başlıklar
 
-[en_US=English sentence checking]
+[en_US=Turkish sentence checking]
 
 spelling=Grammar checking
 grammar=Possible mistakes \n Check more grammar errors.
@@ -51,3 +51,25 @@ metric=Convert to metric (°C, km/h, m, kg, l)\nMeasurement conversion from °F,
 numsep=Thousand separation of large numbers\nCommon (1000000 → 1,000,000) or ISO (1000000 → 1 000 000).
 nonmetric=Convert to non-metric (°F, mph, ft, lb, gal)\nMeasurement conversion from °C; km/h; cm, m, km; kg; l. 
 
+[tr_TR=Türkçe cümle kontrolü]
+
+spelling=Grammar checking
+grammar=Possible mistakes \n Check more grammar errors.
+cap=Capitalization \n Check missing capitalization of sentences.
+dup=Word duplication \n Check repeated words.
+pair=Parentheses \n Check missing or extra parentheses and quotation marks.
+punctuation=Punctuation
+spaces=Word spacing\nCheck single spaces between words.
+mdash=Em dash\nForce unspaced em dash instead of spaced en dash.
+ndash=En dash\nForce spaced en dash instead of unspaced em dash.
+quotation=Quotation marks\nCheck double quotation marks: "x" → “x”
+times=Multiplication sign\nCheck true multipliction sign: 5x5 → 5×5
+spaces2=Sentence spacing\nCheck single spaces between sentences.
+spaces3=More spaces\nCheck more than two extra space characters between words and sentences.
+minus=Minus sign\nChange hyphen characters to real minus signs.
+apostrophe=Apostrophe\nChange typewriter apostrophe, single quotation marks and correct double primes.
+ellipsis=Ellipsis\nChange three dots with ellipsis.
+others=Others
+metric=Convert to metric (°C, km/h, m, kg, l)\nMeasurement conversion from °F, mph, ft, in, lb, gal and miles.
+numsep=Thousand separation of large numbers\nCommon (1000000 → 1,000,000) or ISO (1000000 → 1 000 000).
+nonmetric=Convert to non-metric (°F, mph, ft, lb, gal)\nMeasurement conversion from °C; km/h; cm, m, km; kg; l. 
