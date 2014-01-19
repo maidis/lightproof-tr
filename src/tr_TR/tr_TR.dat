@@ -118,6 +118,20 @@ yesyeni -> yepyeni # Yesyeni, yepisyeni gibi doğru olmayan kullanımlardan kaç
 
 kendi(\w+) tanıştır(\w+) -> = 'kendi' + \1 + ' tanıt' + \2.replace(u"dı",u"tı") # Bir kimsenin kendisini ya da başkasını tanınır duruma getirmesi | tanıtmak sözcüğüyle anlatılır:
 
+#öğretim gör(\w+) <- not re.search(u"[evl]", \1) -> öğrenim gör\1 # Öğretim bilgi, ders vermedir. Bilgi ders alma öğrenim'dir:
+öğretim gör(ebi|ece|en|m|d|s)(\w+) -> öğrenim gör\1\2 # Öğretim bilgi, ders vermedir. Bilgi ders alma öğrenim'dir:
+
+# TODO: Psikoloji ile ilgili geçtiği yerlere bakılıp gerekli istisnalar oluşturulmalı.
+buna bağımlı olarak -> buna bağlı olarak # Bağımlı, özerkliği, özgürlüğü olmayan demektir. Burada böyle bir durum söz konusu değilse doğru kullanımı:
+
+öyle görülüyor ki -> öyle görünüyor ki # Burada görülme değil kendisini göstermek anlamındaki görünme kullanılmalıdır:
+
+olumlu tepki göster(\w+) -> = 'olumlu karşıla' + \1.replace(u"e",u"a").replace(u"i","ı").replace(u"ö",u"o").replace(u"ü",u"u") # Tepki bir duruma karşı gösterilen ters davranıştır. Tepkinin olumlusu olmaz:
+
+# cümle içinde ta ki'den sonra -e kadar, -e dek, -inceye değin, veya -den beri varsa ta kullanılmalıdır
+# ta'dan sonraki kelimeninin / kelimelerden birisinin sonu -sin, -sın, -sun veya -sün'se ta ki kullanılmalıdır
+# Facebook'ta ki yanlış kullanımı
+ta ki -> ta # Uzun süren bir durumun sonunu belirtmek için ta belirteci kullanılır. | Ta ki ise yeter ki anlamı taşır, emir istek eylemiyle birlikte kullanılır:
 
 [word]
 # Soyisimleriyle karışmaması için
@@ -160,6 +174,8 @@ kutlu(larım|lar|lanan) -> kut\1 # Şunu mu demek istediniz:
 
 ##  | Çeviri kokan sözler ##
 
+# olduğu halde
+
 
 ##  | Bozuk anlatımlar ##
 
@@ -171,4 +187,13 @@ kutlu(larım|lar|lanan) -> kut\1 # Şunu mu demek istediniz:
 
 
 ## | Deyimlerde yanlışlar ##
+
+
+## Others | Diğerleri ##
+
+şekerdanlık -> şekerlik # Şunu mu demek istediniz:
+
+dolayısılığıyla -> dolayısıyla # Şunu mu demek istediniz:
+
+zanlet(\w+) -> zannet\1 # Şunu mu demek istediniz:
 
