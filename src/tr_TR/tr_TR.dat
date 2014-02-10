@@ -116,6 +116,14 @@ okunul(\w+) -> okun\1 # Şunu mu demek istediniz:
 
 yesyeni -> yepyeni # Yesyeni, yepisyeni gibi doğru olmayan kullanımlardan kaçınılması gerekir:
 
+[word]
+# Soyisimleriyle karışmaması için
+kutlu(larım|lar|lanan) -> kut\1 # Şunu mu demek istediniz:
+
+[Word]
+
+## Words that are confused with others | Birbirleriyle karıştırılan sözcükler ##
+
 kendi(\w+) tanıştır(\w+) -> = 'kendi' + \1 + ' tanıt' + \2.replace(u"dı",u"tı") # Bir kimsenin kendisini ya da başkasını tanınır duruma getirmesi | tanıtmak sözcüğüyle anlatılır:
 
 #öğretim gör(\w+) <- not re.search(u"[evl]", \1) -> öğrenim gör\1 # Öğretim bilgi, ders vermedir. Bilgi ders alma öğrenim'dir:
@@ -133,23 +141,43 @@ olumlu tepki göster(\w+) -> = 'olumlu karşıla' + \1.replace(u"e",u"a").replac
 # Facebook'ta ki yanlış kullanımı
 ta ki -> ta # Uzun süren bir durumun sonunu belirtmek için ta belirteci kullanılır. | Ta ki ise yeter ki anlamı taşır, emir istek eylemiyle birlikte kullanılır:
 
-[word]
-# Soyisimleriyle karışmaması için
-kutlu(larım|lar|lanan) -> kut\1 # Şunu mu demek istediniz:
-
-[Word]
-
-# Words that are confused with others | Birbiriyle karıştırılan sözcükler
-
 # + aralarında arasında var vardır - bulunduğu - adı karışan > ayrıntı | ayrım
 # \w+ ayrıntı(|) <- re.search(u"(aralarında|arasında|var|vardır), \1) -> ayrım # Teferruat, detay anlamlarına gelen ayrıntı yerine fark anlamına gelen ayrım sözcüğü kullanılmalıdır:
 
+sömürgesi altında(\w+) -> sömürüsü altında\1 # Sömürge, sömürülen ülke demektir. Sömürge yerine sömürme eylemi sömürü kullanılmalıdır:
 
-## Words that are confused with others | Birbirleriyle karıştırılan sözcükler ##
+çözmeye zorunlu olduğu -> çözmek zorunda olduğu # Zorunlu, mecburi demektir. Burada mecbur karşılığı olarak kullanılmıştır. Mecbur'un karşılığı zorunda'dır:
 
+yayınla(\w+) <- not re.match(u"[r]", \1) -> yayımla\1 # Yayın, gazete, kitap, radyo gibi araçlarla yayılan haberler, bilgilerdir. Yayma işi için ise yayım kullanılır:
+
+arık bir dil -> arı bir dil # Arık, zayıf, cılız demektir. Dilin saf ve temiz olduğu söylenmek isteniyorsa:
+
+onanmaz yara -> onulmaz yara # Şunu mu demek istediniz:
+
+altından kalkınamaz -> altından kalkılamaz # Şunu mu demek istediniz:
+
+# yapılacağını temin -> yapılmasını temin # Şunu mu demek istediniz:
+
+son denli -> son derece|aşırı derece|aşırı ölçüde # Şunu mu demek istediniz:
+
+#TODO: sürecin tamamlanması da olabilir mi?
+#TODO: dolan süreç -> dolan süre ?
+sürecin dol(\w+) -> sürenin dol\1 # Süreç, olay ve hareketler dizisidir. Süre ise bir olayın başı ile sonu arasında geçen zamandır:
 
 ## Spelling mistakes | Yazım yanlışları ##
+#TODO: Standartlar nerede belli değil
+c.tesi -> cumartesi|cmt|cts|ct # Şunu mu demek istediniz:
+p.tesi -> pazartesi|pzt # Şunu mu demek istediniz:
 
+andlaşma -> antlaşma # Şunu mu demek istediniz:
+
+dış alım(\w+) -> dışalım\1 # Şunu mu demek istediniz:
+
+bir kaç -> birkaç # Şunu mu demek istediniz:
+
+bir çok -> birçok # Şunu mu demek istediniz:
+
+ön gör(\w+) -> öngör\1 # Şunu mu demek istediniz:
 
 ## | Yanlış anlamla kullanılan sözcükler ##
 
