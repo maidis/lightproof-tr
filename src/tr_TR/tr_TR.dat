@@ -179,10 +179,18 @@ bir çok -> birçok # Şunu mu demek istediniz:
 
 ön gör(\w+) -> öngör\1 # Şunu mu demek istediniz:
 
+re(t|d) etmek(\w+) -> reddetmek\1 # Şunu mu demek istediniz:
+
+belirte gel(\w+) -> belirte gel\1 # Şunu mu demek istediniz:
+
 ## | Yanlış anlamla kullanılan sözcükler ##
 
 
 ## Unneccessary words | Gereksiz sözcükler ##
+
+ve bir de -> bir de # de bağlacı zaten ve'nin görevini yaptığından ve gereksizdir
+ve hem de -> hem de # de bağlacı zaten ve'nin görevini yaptığından ve gereksizdir
+#TODO: virgül gerekir mi veya ve seçeneği de olsun mu?
 
 
 ## Unnecessary auxiliary verb | Gereksiz yardımcı eylemler ##
