@@ -185,12 +185,67 @@ belirte gel(\w+) -> belirte gel\1 # Şunu mu demek istediniz:
 
 ## | Yanlış anlamla kullanılan sözcükler ##
 
+(\w+)ı(ğı|kları) savunuluyor -> \1ı\2 savunuluyor # Savunma bir saldırıya ya da düşünceye karşı olan davranıştır.
+(\w+)(ığını|iğini) savunan -> \1\2 savunan # Savunma bir saldırıya ya da düşünceye karşı olan davranıştır.
+#Kapsama dar mı geniş mi test et (karıştığı savunuluyor, yaklaşmadığını savunan)
+
+zata mahsus -> kişiye özel|kişiye özgü # Doğru Türkçesi
+
+bıçak batır(\w+) -> bıçak sapla\1 # Bıçak saplanır
+
+iğne sapla(\w+) -> iğne batır\1 # İğne batırılır
+
+fidan ek(\w+) -> fidan dik\1 # Fidan dikilir
+
+tohum dik(\w+) -> tohum ek\1 # Tohum ekilir
+
+çorap doku(\w+) -> çorap ör\1.replace(u"tı",u"di").replace(u"a",u"e").replace(u"ı","i").replace(u"o",u"ö").replace(u"u",u"ü") # Bez, kumaş, halı, kilim tezgahta dokunur. Çorap ise şiş ya da tığ ile elde yapılır ve buna örme denir.
+#TODO: kontrol et, gereksiz replace olabilir
+
+(\w+)'(\w+)n dışında (\w+) ve (\w+) (katıldı|geldi) -> \1 ile birlikte \3 ve \4 \5 # İlk kişinin katılmadığı veya gelmediği anlamı oluşmaması için
+#TODO: kontrol et, bir de 'dan başka'yı da alternatif olarak eklemeye çalış
+
+saç(|lar)ı (|çok|bir hayli|epey|bayağı) büyümüş -> saç\1ı \2 uzamış # Saç için büyümüş değil uzamış denir
+
+(Ocak|Şubat|Mart|Nisan|Mayıs|Haziran|Temmuz|Ağustos|Eylül|Ekim|Kasım|Aralık) (16|17|18|19|20)\d\d senes(\w+) -> \1 \2\3\4 tarih\5 # Şunu mu demek istediniz:
+#TODO: kontrol et, alternatif olarak günü için de replace ekle
+
+tarihli toplantı -> tarihindeki toplantı # Tarihli mektup, yazı, gazete olur, bunların üzerinde o tarih yazılıdır. Ama tarihli toplantı olmaz
+
+görülmediği kadarıyla -> görülmemiş ölçüde # Şunu mu demek istediniz:
+
+ölümcül saldırı -> tehlikeli saldırı # Ölümcül sözcüğü ölümle sona eren ya da ölmek üzere olan demektir. Saldırı'nın sıfatı olamaz
+
+(\w+)(yı|yi) amaç gütmeyen -> \1\2 amaçlamayan\n\1 amacı gütmeyen\namacı \1 olmayan # Şunu mu demek istediniz:
+#TODO: test et
+
+ilgi(|yi) derle(\w+) -> ilgi gör\1.replace(u"i",u"ü").replace(u"yen",u"en")\nilgi gösteril\1.replace(u"yen",u"en")\nilgi çek\1.replace(u"yen",u"en").replace(u"di",u"ti") # Şunu mu demek istediniz:
+#TODO: test et
+
+ucuza patla(\w+) <- \1 != "t" -> ucuza mal ol\1.replace(u"ı",u"u").replace(u"ya",u"a")
+ucuza patla(\w+) <- \1 == "t" -> ucuza mal et
+#TODO: test et
+
+#FIX: öncekilerde numaralandırmalar yanlış olabilir, kelime sırası sadece değiştirilenler değil hepsi için sanırım
+
+(\w+)(acak|ecek) (|(\w+)|(\w+) (\w+)|(\w+) (\w+) (\w+)) hatırlatı(\w+) -> \0\1 \2 bildiri\4 # Hatırlatmak, daha önce geçen ya da unutulmaması gereken bir olayı, bir durumu karşıdakinin hatırına getirmek demektir. Yapılacak bir şey daha önceden bilinemeyeceğine göre bunun hatırlatılması söz konusu olamaz
+#TODO: önceki cümleye geçmemeli kontrol et
+
+#TODO: kaybetme şansı, bolluğa düşmek
+
+karşı çevrilen suçlamalar -> karşı ileri sürülen suçlamalar|karşı yöneltilen suçlamalar # Şunu mu demek istediniz:
+
+
+
+\w+ <- \0 == "foo" -> Foo # Foo is a capitalized word.
 
 ## Unneccessary words | Gereksiz sözcükler ##
 
 ve bir de -> bir de # de bağlacı zaten ve'nin görevini yaptığından ve gereksizdir
 ve hem de -> hem de # de bağlacı zaten ve'nin görevini yaptığından ve gereksizdir
 #TODO: virgül gerekir mi veya ve seçeneği de olsun mu?
+
+mevcut bulun(|ul|ma)(\w+) -> \1\2\3 # Mevcut sözcüğü gereksizdir, çıkarılınca anlamda bir eksiklik oluşmaz
 
 
 ## Unnecessary auxiliary verb | Gereksiz yardımcı eylemler ##
