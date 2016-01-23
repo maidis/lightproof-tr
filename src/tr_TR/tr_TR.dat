@@ -290,3 +290,4 @@ dolayısılığıyla -> dolayısıyla # Şunu mu demek istediniz:
 
 zanlet(\w+) -> zannet\1 # Şunu mu demek istediniz:
 
+gözeler önüne ser(\w+) -> gözler önüne ser\1 # Şunu mu demek istediniz:
